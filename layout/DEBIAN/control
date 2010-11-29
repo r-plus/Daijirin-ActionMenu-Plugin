@@ -1,0 +1,12 @@
+Package: jp.r-plus.actionmenudaijirin
+Name: Daijirin ActionMenu Plugin
+Version: 0.9
+Architecture: iphoneos-arm
+Description: Action Menu Plugin.
+Homepage:
+Depiction:
+Maintainer: r_plus <anasthasia.r@gmail.com>
+Author: r_plus <anasthasia.r@gmail.com>
+Section: App Addons
+dev: rplus
+Depends: actionmenu,mobilesubstrate
