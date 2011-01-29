@@ -4,6 +4,10 @@
 #import <Preferences/Preferences.h>
 
 #define PreferencePath @"/var/mobile/Library/Preferences/jp.r-plus.amdaijirin.plist"
+#define DaijirinSchemeURL @"mkdaijirin://jp.monokakido.DAIJIRIN/search?text="
+#define WisdomSchemeURL @"mkwisdom://jp.monokakido.WISDOM/search?text="
+#define EOWSchemeURL @"eow://"
+#define GoogleSchemeURL @"http://www.google.com/m/search?q="
 
 @interface DaijirinListController: PSListController {
 }
@@ -53,7 +57,7 @@
 			![identifier isEqualToString:@"com.apple.mobilesafari"] &&
 			![identifier isEqualToString:@"com.apple.Maps"] &&
 			![identifier isEqualToString:@"com.apple.iBooks"] &&
-			![string isEqualToString:@"http://www.google.com/m/search?q="] &&
+			![string isEqualToString:GoogleSchemeURL] &&
 		  scheme != nil) {
 		[string appendFormat:@"%@&srcname=%@&src=%@:", selection, identifier, scheme];
 	} else {
@@ -77,48 +81,73 @@
 	
 	if ([context isEqualToString:@"amDaijirin"]) {
 		if ([title isEqualToString:@"大辞林"]) {
-			[self performSelector:@selector(didOpenURL:) withObject:@"mkdaijirin://jp.monokakido.DAIJIRIN/search?text=" afterDelay:0];			
+			[self performSelector:@selector(didOpenURL:) withObject:DaijirinSchemeURL afterDelay:0];			
 		} else if ([title isEqualToString:@"Wisdom"]) {
-			[self performSelector:@selector(didOpenURL:) withObject:@"mkwisdom://jp.monokakido.WISDOM/search?text=" afterDelay:0];
+			[self performSelector:@selector(didOpenURL:) withObject:WisdomSchemeURL afterDelay:0];
+		} else if ([title isEqualToString:@"EOW"]) {
+			[self performSelector:@selector(didOpenURL:) withObject:EOWSchemeURL afterDelay:0];
 		} else if ([title isEqualToString:@"Google"]) {
-			[self performSelector:@selector(didOpenURL:) withObject:@"http://www.google.com/m/search?q=" afterDelay:0];
+			[self performSelector:@selector(didOpenURL:) withObject:GoogleSchemeURL afterDelay:0];
 		}
 	}
 	[sheet dismiss];
 }
 
-- (void)doDaijirin:(id)sender
-{	
-	UIActionSheet *sheet = [[[UIActionSheet alloc]
-													 initWithTitle:@"Send to"
-													 buttons:nil//[[NSArray arrayWithObjects:nil]//@"大辞林", @"Wisdom", @"Google", @"Cancel", nil]
-													 defaultButtonIndex:3
-													 delegate:self
-													 context:@"amDaijirin"
-													 ] autorelease];
-	//	[sheet setBodyText:@"send to"];
-
-	
+- (void) doDaijirin:(id)sender
+{
 	NSDictionary *prefsDict = [NSDictionary dictionaryWithContentsOfFile:PreferencePath];
-	int numberOfRows = [[prefsDict objectForKey:@"NumberOfRows"] intValue];	
+	int sheetStyle = [[prefsDict objectForKey:@"SheetStyle"] intValue];
+	
+	id sheet;
+	
+	if (sheetStyle != 3){
+		sheet = [[[UIActionSheet alloc] initWithTitle:@"Send to"
+																				 delegate:self
+																cancelButtonTitle:nil
+													 destructiveButtonTitle:nil
+																otherButtonTitles:nil]
+						 autorelease];
+		
+		[sheet setAlertSheetStyle:sheetStyle];
+	} else {
+		sheet = [[[UIAlertView alloc] initWithTitle:@"Send to"
+																				message:nil
+																			 delegate:self
+															cancelButtonTitle:nil
+															otherButtonTitles:nil]
+						 autorelease];
+	}
+	
+	[sheet setContext:@"amDaijirin"];
+	
 	BOOL daijirinEnabled = [[prefsDict objectForKey:@"DaijirinEnabled"] boolValue];
 	BOOL wisdomEnabled = [[prefsDict objectForKey:@"WisdomEnabled"] boolValue];
+	BOOL eowEnabled = [[prefsDict objectForKey:@"EOWEnabled"] boolValue];
 	BOOL googleEnabled = [[prefsDict objectForKey:@"GoogleEnabled"] boolValue];
-
-	[sheet setNumberOfRows:numberOfRows];
+	
 	if (daijirinEnabled) [sheet addButtonWithTitle:@"大辞林"];
 	if (wisdomEnabled)   [sheet addButtonWithTitle:@"Wisdom"];
+	if (eowEnabled)   [sheet addButtonWithTitle:@"EOW"];
 	if (googleEnabled)   [sheet addButtonWithTitle:@"Google"];
 	[sheet setDefaultButton:(id)[sheet addButtonWithTitle:@"Cancel"]];
 	
 	int i = [sheet numberOfButtons];
+	[sheet setDefaultButtonIndex:i - 1];
 	if (i == 2) {
-		if (daijirinEnabled) [self performSelector:@selector(didOpenURL:) withObject:@"mkdaijirin://jp.monokakido.DAIJIRIN/search?text=" afterDelay:0];
-		if (wisdomEnabled) [self performSelector:@selector(didOpenURL:) withObject:@"mkwisdom://jp.monokakido.WISDOM/search?text=" afterDelay:0];
-		if (googleEnabled) [self performSelector:@selector(didOpenURL:) withObject:@"http://www.google.com/m/search?q=" afterDelay:0];
+		if (daijirinEnabled) [self performSelector:@selector(didOpenURL:) withObject:DaijirinSchemeURL afterDelay:0];
+		if (wisdomEnabled) [self performSelector:@selector(didOpenURL:) withObject:WisdomSchemeURL afterDelay:0];
+		if (eowEnabled) [self performSelector:@selector(didOpenURL:) withObject:EOWSchemeURL afterDelay:0];
+		if (googleEnabled) [self performSelector:@selector(didOpenURL:) withObject:GoogleSchemeURL afterDelay:0];
 	} else if (!(i == 1)){
-		[sheet popupAlertAnimated:YES];
+		
+		if (sheetStyle == 3){
+			[sheet show];
+		} else {
+			[sheet showInView:self.window];
+		}
+		
 	}
+	
 }
 
 - (BOOL)canDoDaijirin:(id)sender

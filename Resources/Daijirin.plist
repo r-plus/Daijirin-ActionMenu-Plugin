@@ -70,6 +70,18 @@
 			<key>defaults</key>
 			<string>jp.r-plus.amdaijirin</string>
 			<key>key</key>
+			<string>EOWEnabled</string>
+			<key>label</key>
+			<string>EOW</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>jp.r-plus.amdaijirin</string>
+			<key>key</key>
 			<string>GoogleEnabled</string>
 			<key>label</key>
 			<string>Google</string>
@@ -78,26 +90,19 @@
 			<key>cell</key>
 			<string>PSLinkListCell</string>
 			<key>default</key>
-			<integer>0</integer>
+			<integer>3</integer>
 			<key>detail</key>
 			<string>PSListItemsController</string>
 			<key>key</key>
-			<string>NumberOfRows</string>
+			<string>SheetStyle</string>
 			<key>label</key>
-			<string>Alert rows</string>
+			<string>Style</string>
 			<key>validTitles</key>
 			<array>
-				<string>Zero(default)</string>
-				<string>One</string>
-				<string>Two</string>
-				<string>Three</string>
-				<string>Four</string>
-				<string>Five</string>
-				<string>Six</string>
-				<string>Seven</string>
-				<string>Eight</string>
-				<string>Nine</string>
-				<string>Ten</string>
+				<string>UIActionSheet(Default)</string>
+				<string>UIActionSheet(BlackTranslucent)</string>
+				<string>UIActionSheet(BlackOpaque)</string>
+				<string>UIAlertView</string>
 			</array>
 			<key>validValues</key>
 			<array>
@@ -105,13 +110,6 @@
 				<integer>1</integer>
 				<integer>2</integer>
 				<integer>3</integer>
-				<integer>4</integer>
-				<integer>5</integer>
-				<integer>6</integer>
-				<integer>7</integer>
-				<integer>8</integer>
-				<integer>9</integer>
-				<integer>10</integer>
 			</array>
 			<key>defaults</key>
 			<string>jp.r-plus.amdaijirin</string>
