@@ -6,7 +6,7 @@
 #define PreferencePath @"/var/mobile/Library/Preferences/jp.r-plus.amdaijirin.plist"
 #define DaijirinSchemeURL @"mkdaijirin://jp.monokakido.DAIJIRIN/search?text="
 #define WisdomSchemeURL @"mkwisdom://jp.monokakido.WISDOM/search?text="
-#define EOWSchemeURL @"eow://"
+#define EOWSchemeURL @"eow://search?query="
 #define GoogleSchemeURL @"http://www.google.com/m/search?q="
 
 @interface DaijirinListController: PSListController {
@@ -28,7 +28,7 @@
 
 @implementation UIView (Daijirin)
 
-- (void) didOpenURL:(NSString *)URLScheme
+- (void)didOpenURL:(NSString *)URLScheme
 {
 	NSString *selection = [self selectedTextualRepresentation];
 	NSMutableString *string = [[NSMutableString alloc] initWithString:URLScheme];
@@ -58,9 +58,17 @@
 			![identifier isEqualToString:@"com.apple.Maps"] &&
 			![identifier isEqualToString:@"com.apple.iBooks"] &&
 			![string isEqualToString:GoogleSchemeURL] &&
+			![string isEqualToString:EOWSchemeURL] &&
 		  scheme != nil) {
 		[string appendFormat:@"%@&srcname=%@&src=%@:", selection, identifier, scheme];
-	} else {
+	} else if (URLSchemeEnabled &&
+						 ![identifier isEqualToString:@"com.apple.mobilesafari"] &&
+						 ![identifier isEqualToString:@"com.apple.Maps"] &&
+						 ![identifier isEqualToString:@"com.apple.iBooks"] &&
+						 [string isEqualToString:EOWSchemeURL] &&
+						 scheme != nil) {
+		[string appendFormat:@"%@&src=%@&callback=%@:", selection, identifier, scheme];
+  } else {
 		[string appendFormat:@"%@",selection];
 	}
 	
@@ -72,7 +80,7 @@
 	[string release];
 }
 
-- (void) alertSheet:(UIActionSheet *)sheet buttonClicked:(int)button
+- (void)alertSheet:(UIActionSheet *)sheet buttonClicked:(int)button
 {
 	NSString *context = [sheet context];
 	button--;
@@ -93,7 +101,7 @@
 	[sheet dismiss];
 }
 
-- (void) doDaijirin:(id)sender
+- (void)doDaijirin:(id)sender
 {
 	NSDictionary *prefsDict = [NSDictionary dictionaryWithContentsOfFile:PreferencePath];
 	int sheetStyle = [[prefsDict objectForKey:@"SheetStyle"] intValue];
@@ -138,7 +146,7 @@
 		if (wisdomEnabled) [self performSelector:@selector(didOpenURL:) withObject:WisdomSchemeURL afterDelay:0];
 		if (eowEnabled) [self performSelector:@selector(didOpenURL:) withObject:EOWSchemeURL afterDelay:0];
 		if (googleEnabled) [self performSelector:@selector(didOpenURL:) withObject:GoogleSchemeURL afterDelay:0];
-	} else if (!(i == 1)){
+	} else if (i != 1){
 		
 		if (sheetStyle == 3){
 			[sheet show];

@@ -1,13 +1,13 @@
-Package: jp.r-plus.actionmenudaijirin
-Name: Daijirin ActionMenu Plugin
-Version: 1.0
-Architecture: iphoneos-arm
-Description: Send text to DAIJIRIN.app(App Store) and more.
-Homepage:
-Depiction:
-Maintainer: BigBoss <bigboss@thebigboss.org>
+Homepage: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=actionmenudaijirinData
+Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=actionmenudaijirinData
 Author: r_plus <anasthasia.r@gmail.com>
-Section: App Addons
-dev: rplus
+Maintainer: BigBoss <bigboss@thebigboss.org>
+Name: Daijirin ActionMenu Plugin
+Package: jp.r-plus.actionmenudaijirin
 Depends: actionmenu, mobilesubstrate
 Conflicts: jp.r-plus.amdaijirin
+Section: App Addons
+Version: 1.1
+Architecture: iphoneos-arm
+Description: send text to DAIJIRIN dictionary app
+dev: rplus
