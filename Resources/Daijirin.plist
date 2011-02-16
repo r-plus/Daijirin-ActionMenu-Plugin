@@ -49,6 +49,8 @@
 			<string>DaijirinEnabled</string>
 			<key>label</key>
 			<string>Daijirin</string>
+			<key>icon</key>
+			<key>Daijirin.png</key>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -61,6 +63,8 @@
 			<string>WisdomEnabled</string>
 			<key>label</key>
 			<string>Wisdom</string>
+			<key>icon</key>
+			<key>Wisdom.png</key>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -73,6 +77,8 @@
 			<string>EOWEnabled</string>
 			<key>label</key>
 			<string>EOW</string>
+			<key>icon</key>
+			<key>EOW.png</key>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -85,6 +91,8 @@
 			<string>GoogleEnabled</string>
 			<key>label</key>
 			<string>Google</string>
+			<key>icon</key>
+			<key>Safari.png</key>
 		</dict>
 		<dict>
 			<key>cell</key>

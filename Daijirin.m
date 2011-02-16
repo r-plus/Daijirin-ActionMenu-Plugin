@@ -137,25 +137,21 @@
 	if (wisdomEnabled)   [sheet addButtonWithTitle:@"Wisdom"];
 	if (eowEnabled)   [sheet addButtonWithTitle:@"EOW"];
 	if (googleEnabled)   [sheet addButtonWithTitle:@"Google"];
-	[sheet setDefaultButton:(id)[sheet addButtonWithTitle:@"Cancel"]];
-	
+	[sheet setCancelButtonIndex:[sheet addButtonWithTitle:@"Cancel"]];
+		
 	int i = [sheet numberOfButtons];
-	[sheet setDefaultButtonIndex:i - 1];
 	if (i == 2) {
 		if (daijirinEnabled) [self performSelector:@selector(didOpenURL:) withObject:DaijirinSchemeURL afterDelay:0];
 		if (wisdomEnabled) [self performSelector:@selector(didOpenURL:) withObject:WisdomSchemeURL afterDelay:0];
 		if (eowEnabled) [self performSelector:@selector(didOpenURL:) withObject:EOWSchemeURL afterDelay:0];
 		if (googleEnabled) [self performSelector:@selector(didOpenURL:) withObject:GoogleSchemeURL afterDelay:0];
 	} else if (i != 1){
-		
 		if (sheetStyle == 3){
 			[sheet show];
 		} else {
-			[sheet showInView:self.window];
+			[sheet showInView:self];
 		}
-		
 	}
-	
 }
 
 - (BOOL)canDoDaijirin:(id)sender
@@ -170,13 +166,13 @@
 	NSString* model = [[UIDevice currentDevice] model];
 	isPad = [model isEqualToString:@"iPad"];
 	
-		id<AMMenuItem> daijirinMenu = [[UIMenuController sharedMenuController] registerAction:@selector(doDaijirin:) title:@"Daijirin" canPerform:@selector(canDoDaijirin:)];
+	id<AMMenuItem> daijirinMenu = [[UIMenuController sharedMenuController] registerAction:@selector(doDaijirin:) title:@"Daijirin" canPerform:@selector(canDoDaijirin:)];
 		
-		if (!isPad && [[UIScreen mainScreen] scale] == 2.0 ) {
-			daijirinMenu.image = [[UIImage alloc] initWithContentsOfFile:@"/Library/ActionMenu/Plugins/Daijirin@2x.png"];
-		} else {
-			daijirinMenu.image = [[UIImage alloc] initWithContentsOfFile:@"/Library/ActionMenu/Plugins/Daijirin.png"];
-		}
+	if (!isPad && [[UIScreen mainScreen] scale] == 2.0 ) {
+		daijirinMenu.image = [[UIImage alloc] initWithContentsOfFile:@"/Library/ActionMenu/Plugins/Daijirin@2x.png"];
+	} else {
+		daijirinMenu.image = [[UIImage alloc] initWithContentsOfFile:@"/Library/ActionMenu/Plugins/Daijirin.png"];
+	}
 }
 
 @end
