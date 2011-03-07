@@ -42,7 +42,7 @@
 			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
-			<false/>
+			<true/>
 			<key>defaults</key>
 			<string>jp.r-plus.amdaijirin</string>
 			<key>key</key>
@@ -51,6 +51,20 @@
 			<string>Daijirin</string>
 			<key>icon</key>
 			<key>Daijirin.png</key>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>jp.r-plus.amdaijirin</string>
+			<key>key</key>
+			<string>DaijisenEnabled</string>
+			<key>label</key>
+			<string>Daijisen</string>
+			<key>icon</key>
+			<key>Daijisen.png</key>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -88,9 +102,9 @@
 			<key>defaults</key>
 			<string>jp.r-plus.amdaijirin</string>
 			<key>key</key>
-			<string>GoogleEnabled</string>
+			<string>SafariEnabled</string>
 			<key>label</key>
-			<string>Google</string>
+			<string>Safari</string>
 			<key>icon</key>
 			<key>Safari.png</key>
 		</dict>
@@ -98,7 +112,7 @@
 			<key>cell</key>
 			<string>PSLinkListCell</string>
 			<key>default</key>
-			<integer>3</integer>
+			<integer>2</integer>
 			<key>detail</key>
 			<string>PSListItemsController</string>
 			<key>key</key>

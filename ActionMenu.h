@@ -60,7 +60,7 @@ typedef enum {
 	// pluginName is the unlocalized title of the plugin
 @end
 
-@interface UIView (ActionMenu) <UIActionSheetDelegate>
+@interface UIResponder (ActionMenu)
 - (NSString *)textualRepresentation;
 	// Called by plugins to get the text of the object; implement manually for custom views
 - (NSString *)selectedTextualRepresentation;

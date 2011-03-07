@@ -4,10 +4,13 @@
 #import <Preferences/Preferences.h>
 
 #define PreferencePath @"/var/mobile/Library/Preferences/jp.r-plus.amdaijirin.plist"
+#define URLSchemeBlacklist (![identifier isEqualToString:@"com.apple.Maps"] && ![identifier isEqualToString:@"com.apple.iBooks"])
+//&& ![identifier isEqualToString:@"com.apple.mobilesafari"] 
 #define DaijirinSchemeURL @"mkdaijirin://jp.monokakido.DAIJIRIN/search?text="
+#define DaijisenSchemeURL @"daijisen:operation=searchStartsWith;keyword="
 #define WisdomSchemeURL @"mkwisdom://jp.monokakido.WISDOM/search?text="
 #define EOWSchemeURL @"eow://search?query="
-#define GoogleSchemeURL @"http://www.google.com/m/search?q="
+#define SafariSchemeURL @"x-web-search:///?"
 
 @interface DaijirinListController: PSListController {
 }
@@ -26,7 +29,14 @@
 }
 @end
 
-@implementation UIView (Daijirin)
+@interface UIApplication (DaijirinGetSafariActiveURL)
+- (id) activeURL;
+@end
+
+@interface UIResponder (Daijirin) <UIActionSheetDelegate>
+@end
+
+@implementation UIResponder (Daijirin)
 
 - (void)didOpenURL:(NSString *)URLScheme
 {
@@ -40,35 +50,51 @@
 	NSString *scheme = nil;
 	NSArray *URLTypes;
 	NSDictionary *URLType;
-
-	if ((URLTypes = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleURLTypes"])) {
+	
+	NSDictionary *prefsDict = [NSDictionary dictionaryWithContentsOfFile:PreferencePath];
+	BOOL URLSchemeEnabled = [[prefsDict objectForKey:@"Enabled"] boolValue];
+	
+	NSString *identifier = [[NSBundle mainBundle] bundleIdentifier];
+	if ([identifier isEqualToString:@"com.apple.MobileSMS"]) { scheme = @"sms"; }
+	
+	if ([identifier isEqualToString:@"com.apple.mobilesafari"]) {
+    scheme = [[UIApplication sharedApplication] activeURL];
+	} else if ((URLTypes = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleURLTypes"])) {
 		if ((URLType = [URLTypes lastObject])) {
 			scheme = [[URLType objectForKey:@"CFBundleURLSchemes"] lastObject];
 		}
 	}
 	
-	NSDictionary *prefsDict = [NSDictionary dictionaryWithContentsOfFile:PreferencePath];
-	BOOL URLSchemeEnabled = [[prefsDict objectForKey:@"Enabled"] boolValue];
-		
-	NSString *identifier = [[NSBundle mainBundle] bundleIdentifier];
-	if ([identifier isEqualToString:@"com.apple.MobileSMS"]) { scheme = @"sms"; }
-	
-	if (URLSchemeEnabled &&
-			![identifier isEqualToString:@"com.apple.mobilesafari"] &&
-			![identifier isEqualToString:@"com.apple.Maps"] &&
-			![identifier isEqualToString:@"com.apple.iBooks"] &&
-			![string isEqualToString:GoogleSchemeURL] &&
-			![string isEqualToString:EOWSchemeURL] &&
+	if ( ( [string isEqualToString:DaijirinSchemeURL] || [string isEqualToString:WisdomSchemeURL] ) &&
+			URLSchemeEnabled &&
+			URLSchemeBlacklist &&
 		  scheme != nil) {
-		[string appendFormat:@"%@&srcname=%@&src=%@:", selection, identifier, scheme];
+		if ([identifier isEqualToString:@"com.apple.mobilesafari"]){
+			[string appendFormat:@"%@&srcname=%@&src=%@", selection, identifier, scheme];			
+		} else {
+			[string appendFormat:@"%@&srcname=%@&src=%@:", selection, identifier, scheme];
+		}
 	} else if (URLSchemeEnabled &&
-						 ![identifier isEqualToString:@"com.apple.mobilesafari"] &&
-						 ![identifier isEqualToString:@"com.apple.Maps"] &&
-						 ![identifier isEqualToString:@"com.apple.iBooks"] &&
+						 URLSchemeBlacklist &&
 						 [string isEqualToString:EOWSchemeURL] &&
 						 scheme != nil) {
-		[string appendFormat:@"%@&src=%@&callback=%@:", selection, identifier, scheme];
-  } else {
+		if ([identifier isEqualToString:@"com.apple.mobilesafari"]){
+			[string appendFormat:@"%@&src=%@&callback=%@", selection, identifier, scheme];
+		} else {
+			[string appendFormat:@"%@&src=%@&callback=%@:", selection, identifier, scheme];
+		}
+  } else if ([string isEqualToString:DaijisenSchemeURL]) {
+		[string appendFormat:@"%@;", selection];
+		if (URLSchemeEnabled &&
+				URLSchemeBlacklist &&
+				scheme != nil) {
+			if ([identifier isEqualToString:@"com.apple.mobilesafari"]){
+				[string appendFormat:@"appBackURL=%22%@%22;", scheme];
+			} else {
+				[string appendFormat:@"appBackURL=%22%@:%22;", scheme];
+			}
+		}
+	} else {
 		[string appendFormat:@"%@",selection];
 	}
 	
@@ -89,13 +115,15 @@
 	
 	if ([context isEqualToString:@"amDaijirin"]) {
 		if ([title isEqualToString:@"大辞林"]) {
-			[self performSelector:@selector(didOpenURL:) withObject:DaijirinSchemeURL afterDelay:0];			
+			[self performSelector:@selector(didOpenURL:) withObject:DaijirinSchemeURL afterDelay:0];
+		} else if ([title isEqualToString:@"大辞泉"]) {
+			[self performSelector:@selector(didOpenURL:) withObject:DaijisenSchemeURL afterDelay:0];
 		} else if ([title isEqualToString:@"Wisdom"]) {
 			[self performSelector:@selector(didOpenURL:) withObject:WisdomSchemeURL afterDelay:0];
 		} else if ([title isEqualToString:@"EOW"]) {
 			[self performSelector:@selector(didOpenURL:) withObject:EOWSchemeURL afterDelay:0];
-		} else if ([title isEqualToString:@"Google"]) {
-			[self performSelector:@selector(didOpenURL:) withObject:GoogleSchemeURL afterDelay:0];
+		} else if ([title isEqualToString:@"Safari"]) {
+			[self performSelector:@selector(didOpenURL:) withObject:SafariSchemeURL afterDelay:0];
 		}
 	}
 	[sheet dismiss];
@@ -103,12 +131,18 @@
 
 - (void)doDaijirin:(id)sender
 {
+	[self performSelector:@selector(showActionSheetForDaijirin:) withObject:self afterDelay:0];
+}
+
+- (void)showActionSheetForDaijirin:(id)sender
+{
 	NSDictionary *prefsDict = [NSDictionary dictionaryWithContentsOfFile:PreferencePath];
 	int sheetStyle = [[prefsDict objectForKey:@"SheetStyle"] intValue];
-	
+	NSString *identifier = [[NSBundle mainBundle] bundleIdentifier];
+	if ( [identifier isEqualToString:@"ch.reeder"] ) sheetStyle = 3;
 	id sheet;
 	
-	if (sheetStyle != 3){
+	if (sheetStyle != 3) {
 		sheet = [[[UIActionSheet alloc] initWithTitle:@"Send to"
 																				 delegate:self
 																cancelButtonTitle:nil
@@ -129,27 +163,30 @@
 	[sheet setContext:@"amDaijirin"];
 	
 	BOOL daijirinEnabled = [[prefsDict objectForKey:@"DaijirinEnabled"] boolValue];
+	BOOL daijisenEnabled = [[prefsDict objectForKey:@"DaijisenEnabled"] boolValue];
 	BOOL wisdomEnabled = [[prefsDict objectForKey:@"WisdomEnabled"] boolValue];
 	BOOL eowEnabled = [[prefsDict objectForKey:@"EOWEnabled"] boolValue];
-	BOOL googleEnabled = [[prefsDict objectForKey:@"GoogleEnabled"] boolValue];
+	BOOL safariEnabled = [[prefsDict objectForKey:@"SafariEnabled"] boolValue];
 	
 	if (daijirinEnabled) [sheet addButtonWithTitle:@"大辞林"];
+	if (daijisenEnabled) [sheet addButtonWithTitle:@"大辞泉"];
 	if (wisdomEnabled)   [sheet addButtonWithTitle:@"Wisdom"];
 	if (eowEnabled)   [sheet addButtonWithTitle:@"EOW"];
-	if (googleEnabled)   [sheet addButtonWithTitle:@"Google"];
+	if (safariEnabled)   [sheet addButtonWithTitle:@"Safari"];
 	[sheet setCancelButtonIndex:[sheet addButtonWithTitle:@"Cancel"]];
 		
 	int i = [sheet numberOfButtons];
 	if (i == 2) {
 		if (daijirinEnabled) [self performSelector:@selector(didOpenURL:) withObject:DaijirinSchemeURL afterDelay:0];
+		if (daijisenEnabled) [self performSelector:@selector(didOpenURL:) withObject:DaijisenSchemeURL afterDelay:0];
 		if (wisdomEnabled) [self performSelector:@selector(didOpenURL:) withObject:WisdomSchemeURL afterDelay:0];
 		if (eowEnabled) [self performSelector:@selector(didOpenURL:) withObject:EOWSchemeURL afterDelay:0];
-		if (googleEnabled) [self performSelector:@selector(didOpenURL:) withObject:GoogleSchemeURL afterDelay:0];
+		if (safariEnabled) [self performSelector:@selector(didOpenURL:) withObject:SafariSchemeURL afterDelay:0];
 	} else if (i != 1){
 		if (sheetStyle == 3){
 			[sheet show];
 		} else {
-			[sheet showInView:self];
+			[sheet showInView:sender];
 		}
 	}
 }
