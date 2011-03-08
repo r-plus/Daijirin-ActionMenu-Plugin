@@ -7,7 +7,8 @@ Send to "Daijirin", "Daijisen", "Wisdom" and "Safari".
 r_plus(@r_plus)
 
 //ChangeLog
-
+1.2.1 : bug fix.
+        change linkage-app icons like Apple.
 1.2 : add Daijisen(jp/en Dic) option.
       change button name Google to Safari (available Yahoo! and Bing. (Selected SearchEngine of Safari))
       excluding the return URL Scheme exception of mobilesafari. However, return http scheme behavior is reload page. So I recommended use for AppSwitcher.
