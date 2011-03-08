@@ -7,7 +7,7 @@ Package: jp.r-plus.actionmenudaijirin
 Depends: actionmenu, mobilesubstrate
 Conflicts: jp.r-plus.amdaijirin
 Section: App Addons
-Version: 1.2
+Version: 1.2.1
 Architecture: iphoneos-arm
 Description: send text to DAIJIRIN dictionary app
 dev: rplus

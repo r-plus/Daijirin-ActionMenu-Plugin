@@ -137,56 +137,62 @@
 - (void)showActionSheetForDaijirin:(id)sender
 {
 	NSDictionary *prefsDict = [NSDictionary dictionaryWithContentsOfFile:PreferencePath];
-	int sheetStyle = [[prefsDict objectForKey:@"SheetStyle"] intValue];
-	NSString *identifier = [[NSBundle mainBundle] bundleIdentifier];
-	if ( [identifier isEqualToString:@"ch.reeder"] ) sheetStyle = 3;
-	id sheet;
-	
-	if (sheetStyle != 3) {
-		sheet = [[[UIActionSheet alloc] initWithTitle:@"Send to"
+	if (!prefsDict){
+		[self performSelector:@selector(didOpenURL:) withObject:DaijirinSchemeURL afterDelay:0];
+	} else {
+		int sheetStyle = [[prefsDict objectForKey:@"SheetStyle"] intValue];
+		NSString *identifier = [[NSBundle mainBundle] bundleIdentifier];
+		if ( [identifier isEqualToString:@"ch.reeder"] ) sheetStyle = 3;
+		id sheet;
+		
+		if (sheetStyle != 3) {
+			sheet = [[[UIActionSheet alloc] initWithTitle:@"Send to"
+																					 delegate:self
+																	cancelButtonTitle:nil
+														 destructiveButtonTitle:nil
+																	otherButtonTitles:nil]
+							 autorelease];
+			
+			[sheet setAlertSheetStyle:sheetStyle];
+		} else {
+			sheet = [[[UIAlertView alloc] initWithTitle:@"Send to"
+																					message:nil
 																				 delegate:self
 																cancelButtonTitle:nil
-													 destructiveButtonTitle:nil
 																otherButtonTitles:nil]
-						 autorelease];
+							 autorelease];
+		}
 		
-		[sheet setAlertSheetStyle:sheetStyle];
-	} else {
-		sheet = [[[UIAlertView alloc] initWithTitle:@"Send to"
-																				message:nil
-																			 delegate:self
-															cancelButtonTitle:nil
-															otherButtonTitles:nil]
-						 autorelease];
-	}
-	
-	[sheet setContext:@"amDaijirin"];
-	
-	BOOL daijirinEnabled = [[prefsDict objectForKey:@"DaijirinEnabled"] boolValue];
-	BOOL daijisenEnabled = [[prefsDict objectForKey:@"DaijisenEnabled"] boolValue];
-	BOOL wisdomEnabled = [[prefsDict objectForKey:@"WisdomEnabled"] boolValue];
-	BOOL eowEnabled = [[prefsDict objectForKey:@"EOWEnabled"] boolValue];
-	BOOL safariEnabled = [[prefsDict objectForKey:@"SafariEnabled"] boolValue];
-	
-	if (daijirinEnabled) [sheet addButtonWithTitle:@"大辞林"];
-	if (daijisenEnabled) [sheet addButtonWithTitle:@"大辞泉"];
-	if (wisdomEnabled)   [sheet addButtonWithTitle:@"Wisdom"];
-	if (eowEnabled)   [sheet addButtonWithTitle:@"EOW"];
-	if (safariEnabled)   [sheet addButtonWithTitle:@"Safari"];
-	[sheet setCancelButtonIndex:[sheet addButtonWithTitle:@"Cancel"]];
+		[sheet setContext:@"amDaijirin"];
 		
-	int i = [sheet numberOfButtons];
-	if (i == 2) {
-		if (daijirinEnabled) [self performSelector:@selector(didOpenURL:) withObject:DaijirinSchemeURL afterDelay:0];
-		if (daijisenEnabled) [self performSelector:@selector(didOpenURL:) withObject:DaijisenSchemeURL afterDelay:0];
-		if (wisdomEnabled) [self performSelector:@selector(didOpenURL:) withObject:WisdomSchemeURL afterDelay:0];
-		if (eowEnabled) [self performSelector:@selector(didOpenURL:) withObject:EOWSchemeURL afterDelay:0];
-		if (safariEnabled) [self performSelector:@selector(didOpenURL:) withObject:SafariSchemeURL afterDelay:0];
-	} else if (i != 1){
-		if (sheetStyle == 3){
-			[sheet show];
-		} else {
-			[sheet showInView:sender];
+		BOOL daijirinEnabled = [[prefsDict objectForKey:@"DaijirinEnabled"] boolValue];
+		BOOL daijisenEnabled = [[prefsDict objectForKey:@"DaijisenEnabled"] boolValue];
+		BOOL wisdomEnabled = [[prefsDict objectForKey:@"WisdomEnabled"] boolValue];
+		BOOL eowEnabled = [[prefsDict objectForKey:@"EOWEnabled"] boolValue];
+		BOOL safariEnabled = [[prefsDict objectForKey:@"SafariEnabled"] boolValue];
+		
+		if (daijirinEnabled) [sheet addButtonWithTitle:@"大辞林"];
+		if (daijisenEnabled) [sheet addButtonWithTitle:@"大辞泉"];
+		if (wisdomEnabled)   [sheet addButtonWithTitle:@"Wisdom"];
+		if (eowEnabled)   [sheet addButtonWithTitle:@"EOW"];
+		if (safariEnabled)   [sheet addButtonWithTitle:@"Safari"];
+		[sheet setCancelButtonIndex:[sheet addButtonWithTitle:@"Cancel"]];
+		
+		int i = [sheet numberOfButtons];
+		if (i == 1) {
+			[self performSelector:@selector(didOpenURL:) withObject:DaijirinSchemeURL afterDelay:0];
+		} else if (i == 2) {
+			if (daijirinEnabled) [self performSelector:@selector(didOpenURL:) withObject:DaijirinSchemeURL afterDelay:0];
+			if (daijisenEnabled) [self performSelector:@selector(didOpenURL:) withObject:DaijisenSchemeURL afterDelay:0];
+			if (wisdomEnabled) [self performSelector:@selector(didOpenURL:) withObject:WisdomSchemeURL afterDelay:0];
+			if (eowEnabled) [self performSelector:@selector(didOpenURL:) withObject:EOWSchemeURL afterDelay:0];
+			if (safariEnabled) [self performSelector:@selector(didOpenURL:) withObject:SafariSchemeURL afterDelay:0];
+		} else if (i > 2){
+			if (sheetStyle == 3){
+				[sheet show];
+			} else {
+				[sheet showInView:sender];
+			}
 		}
 	}
 }
