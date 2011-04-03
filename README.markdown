@@ -1,12 +1,12 @@
-//Daijirin ActionMenu Plugin
+#Daijirin ActionMenu Plugin
 
 Send to "Daijirin", "Daijisen", "Wisdom" and "Safari".
 
-//Author
+##Author
 
 r_plus(@r_plus)
 
-//ChangeLog
+##ChangeLog
 1.2.1 : bug fix.
         change linkage-app icons like Apple.
 1.2 : add Daijisen(jp/en Dic) option.
@@ -29,12 +29,12 @@ r_plus(@r_plus)
 0.2 : available icon style.
 0.1 : initial release.
 
-//Special Thanks
+##Special Thanks
 
 moyashi @hitoriblog (applicationOpenURL method)
 tom_go @tom_go (x-web-search:///? URL Scheme)
 
-// License
+## License
 
 The New BSD License ( 2-Clause BSD License )
 
