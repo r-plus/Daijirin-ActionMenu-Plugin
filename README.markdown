@@ -8,8 +8,10 @@ r_plus(@r_plus)
 
 ##ChangeLog
 1.2.1
+
 * bug fix.
 * change linkage-app icons like Apple.
+
 1.2
 * add Daijisen(jp/en Dic) option.
 * change button name Google to Safari (available Yahoo! and Bing. (Selected SearchEngine of Safari))
