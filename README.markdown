@@ -5,7 +5,7 @@ Send to "Daijirin", "Daijisen", "Wisdom" and "Safari".
 ##Author
 
 ![](http://moreinfo.thebigboss.org/moreinfo/actionmenudaijirin1.png)
-![]http://moreinfo.thebigboss.org/moreinfo/actionmenudaijirin3.png)
+![](http://moreinfo.thebigboss.org/moreinfo/actionmenudaijirin3.png)
 
 ##ChangeLog
 1.2.1
