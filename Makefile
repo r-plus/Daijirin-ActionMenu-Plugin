@@ -1,3 +1,4 @@
+SDKVERSION = latest
 include theos/makefiles/common.mk
 
 BUNDLE_NAME = Daijirin
