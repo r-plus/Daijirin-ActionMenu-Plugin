@@ -7,32 +7,43 @@ Send to "Daijirin", "Daijisen", "Wisdom" and "Safari".
 r_plus(@r_plus)
 
 ##ChangeLog
-1.2.1 : bug fix.
-        change linkage-app icons like Apple.
-1.2 : add Daijisen(jp/en Dic) option.
-      change button name Google to Safari (available Yahoo! and Bing. (Selected SearchEngine of Safari))
-      excluding the return URL Scheme exception of mobilesafari. However, return http scheme behavior is reload page. So I recommended use for AppSwitcher.
-      SheetStyle option exception handling in "ch.reeder".
-1.1.1 : fix crash on iPad.
-        add launch app icons. (Preference icons)
-1.1 : remove AlertRow option.
-      add ActionSheet option.
-      add EOW (Eijiro on the Web(AppStore)) option
-1.0 : add select option (Wisdom and Google).
-      add AlertRow option.
----BigBoss repo release
-0.5 : PreferenceLoader -> ActionMenu PreferenceBundle. change pkgname "ActionMenu" to "Action Menu".
-0.4-2 : add . (add condition url scheme != nil )
-0.4 : add urlscheme(except mobilesafari).
-      enable/disable switch in Preference.app(depend preferenceloader).
-0.3 : available iPad. ( fix crash )
-0.2 : available icon style.
-0.1 : initial release.
+1.2.1
+* bug fix.
+* change linkage-app icons like Apple.
+1.2
+* add Daijisen(jp/en Dic) option.
+* change button name Google to Safari (available Yahoo! and Bing. (Selected SearchEngine of Safari))
+* excluding the return URL Scheme exception of mobilesafari. However, return http scheme behavior is reload page. So I recommended use for AppSwitcher.
+* SheetStyle option exception handling in "ch.reeder".
+1.1.1
+* fix crash on iPad.
+* add launch app icons. (Preference icons)
+1.1
+* remove AlertRow option.
+* add ActionSheet option.
+* add EOW (Eijiro on the Web(AppStore)) option
+1.0
+* add select option (Wisdom and Google).
+* add AlertRow option.
+---BigBoss repo release  
+0.5
+* PreferenceLoader -> ActionMenu PreferenceBundle. change pkgname "ActionMenu" to "Action Menu".
+0.4-2
+* add . (add condition url scheme != nil )
+0.4
+* add urlscheme(except mobilesafari).
+* enable/disable switch in Preference.app(depend preferenceloader).
+0.3
+* available iPad. ( fix crash )
+0.2
+* available icon style.
+0.1
+* initial release.
 
 ##Special Thanks
 
-moyashi @hitoriblog (applicationOpenURL method).
-tom_go @tom_go (x-web-search:///? URL Scheme).
+moyashi @hitoriblog (applicationOpenURL method)  
+tom_go @tom_go (x-web-search:///? URL Scheme)
 
 ## License
 
