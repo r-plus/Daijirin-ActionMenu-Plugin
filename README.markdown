@@ -6,6 +6,19 @@ Send to "Daijirin", "Daijisen", "Wisdom" and "Safari".
 ![](http://moreinfo.thebigboss.org/moreinfo/actionmenudaijirin3.png)
 
 ##ChangeLog
+1.3
+
+* [ADD] EBPocket(Professional) option.
+* [MOD] default behavior.
+
+1.2.2-2
+
+* [MOD] default behavior.
+
+1.2.2
+
+* [FIX] implement UIActionSheet delegate method class issue.
+
 1.2.1
 
 * bug fix.

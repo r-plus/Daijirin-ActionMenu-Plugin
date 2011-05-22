@@ -7,7 +7,14 @@
 #define DAIJISEN_SCHEME_URL @"daijisen:operation=searchStartsWith;keyword="
 #define WISDOM_SCHEME_URL @"mkwisdom://jp.monokakido.WISDOM/search?text="
 #define EOW_SCHEME_URL @"eow://search?query="
+#define EBPOCKET_SCHEME_URL @"ebpocket://search?text="
 #define SAFARI_SCHEME_URL @"x-web-search:///?"
+
+@interface UIActionSheet (Daijirin)
+- (void)setUseTwoColumnsButtonsLayout:(BOOL)arg1;
+- (void)setTwoColumnsLayoutMode:(int)arg1;
+- (void)setForceHorizontalButtonsLayout:(BOOL)arg1;
+@end
 
 @implementation UIView (Daijirin)
 
@@ -21,60 +28,73 @@
 	if (!prefsDict){
 		[delegate didOpenURL:DAIJIRIN_SCHEME_URL];
 		return;
-	} else {
-		int sheetStyle = [[prefsDict objectForKey:@"SheetStyle"] intValue] ?: 2;
-		NSString *identifier = [[NSBundle mainBundle] bundleIdentifier];
-		if ( [identifier isEqualToString:@"ch.reeder"] ) sheetStyle = 3;
-		id sheet;
-		
-		if (sheetStyle != 3) {
-			sheet = [[[UIActionSheet alloc] initWithTitle:@"Send to"
-																					 delegate:delegate
-																	cancelButtonTitle:nil
-														 destructiveButtonTitle:nil
-																	otherButtonTitles:nil]
-							 autorelease];
-			
-			[sheet setAlertSheetStyle:sheetStyle];
-		} else {
-			sheet = [[[UIAlertView alloc] initWithTitle:@"Send to"
-																					message:nil
+	}
+	
+	int sheetStyle = 2;
+	if([prefsDict objectForKey:@"SheetStyle"] != nil) sheetStyle = [[prefsDict objectForKey:@"SheetStyle"] intValue];
+	NSString *identifier = [[NSBundle mainBundle] bundleIdentifier];
+	if ( [identifier isEqualToString:@"ch.reeder"] ) sheetStyle = 3;
+	id sheet;
+	
+	if (sheetStyle != 3) {
+		sheet = [[[UIActionSheet alloc] initWithTitle:@"Send to"
 																				 delegate:delegate
 																cancelButtonTitle:nil
+													 destructiveButtonTitle:nil
 																otherButtonTitles:nil]
-							 autorelease];
-		}
+						 autorelease];
 		
-		[sheet setContext:@"amDaijirin"];
-		
-		BOOL daijirinEnabled = [[prefsDict objectForKey:@"DaijirinEnabled"] boolValue] ?: YES;
-		BOOL daijisenEnabled = [[prefsDict objectForKey:@"DaijisenEnabled"] boolValue];
-		BOOL wisdomEnabled = [[prefsDict objectForKey:@"WisdomEnabled"] boolValue];
-		BOOL eowEnabled = [[prefsDict objectForKey:@"EOWEnabled"] boolValue];
-		BOOL safariEnabled = [[prefsDict objectForKey:@"SafariEnabled"] boolValue];
-		
-		if (daijirinEnabled) [sheet addButtonWithTitle:@"大辞林"];
-		if (daijisenEnabled) [sheet addButtonWithTitle:@"大辞泉"];
-		if (wisdomEnabled)   [sheet addButtonWithTitle:@"Wisdom"];
-		if (eowEnabled)   [sheet addButtonWithTitle:@"EOW"];
-		if (safariEnabled)   [sheet addButtonWithTitle:@"Safari"];
-		[sheet setCancelButtonIndex:[sheet addButtonWithTitle:@"Cancel"]];
-		
-		int i = [sheet numberOfButtons];
-		if (i == 1) {
-			[delegate didOpenURL:DAIJIRIN_SCHEME_URL];
-		} else if (i == 2) {
-			if (daijirinEnabled) [delegate didOpenURL:DAIJIRIN_SCHEME_URL];
-			if (daijisenEnabled) [delegate didOpenURL:DAIJISEN_SCHEME_URL];
-			if (wisdomEnabled)   [delegate didOpenURL:WISDOM_SCHEME_URL];
-			if (eowEnabled)      [delegate didOpenURL:EOW_SCHEME_URL];
-			if (safariEnabled)   [delegate didOpenURL:SAFARI_SCHEME_URL];
-		} else if (i > 2){
-			if (sheetStyle == 3){
-				[sheet show];
-			} else {
-				[sheet showInView:self];
+		[sheet setAlertSheetStyle:sheetStyle];
+	} else {
+		sheet = [[[UIAlertView alloc] initWithTitle:@"Send to"
+																				message:nil
+																			 delegate:delegate
+															cancelButtonTitle:nil
+															otherButtonTitles:nil]
+						 autorelease];
+	}
+	
+	[sheet setContext:@"amDaijirin"];
+	
+	BOOL daijirinEnabled = YES;
+	if([prefsDict objectForKey:@"DaijirinEnabled"] != nil) daijirinEnabled = [[prefsDict objectForKey:@"DaijirinEnabled"] boolValue];
+	BOOL daijisenEnabled = [[prefsDict objectForKey:@"DaijisenEnabled"] boolValue];
+	BOOL wisdomEnabled = [[prefsDict objectForKey:@"WisdomEnabled"] boolValue];
+	BOOL eowEnabled = [[prefsDict objectForKey:@"EOWEnabled"] boolValue];
+	BOOL ebpocketEnabled = [[prefsDict objectForKey:@"EBPocketEnabled"] boolValue];
+	BOOL safariEnabled = [[prefsDict objectForKey:@"SafariEnabled"] boolValue];
+	
+	if (daijirinEnabled) [sheet addButtonWithTitle:@"大辞林"];
+	if (daijisenEnabled) [sheet addButtonWithTitle:@"大辞泉"];
+	if (wisdomEnabled)   [sheet addButtonWithTitle:@"Wisdom"];
+	if (eowEnabled)   [sheet addButtonWithTitle:@"EOW"];
+	if (ebpocketEnabled)   [sheet addButtonWithTitle:@"EBPocket"];
+	if (safariEnabled)   [sheet addButtonWithTitle:@"Safari"];
+	[sheet setCancelButtonIndex:[sheet addButtonWithTitle:@"Cancel"]];
+	
+	int i = [sheet numberOfButtons];
+	if (i == 1) {
+		[delegate didOpenURL:DAIJIRIN_SCHEME_URL];
+	} else if (i == 2) {
+		if (daijirinEnabled) [delegate didOpenURL:DAIJIRIN_SCHEME_URL];
+		if (daijisenEnabled) [delegate didOpenURL:DAIJISEN_SCHEME_URL];
+		if (wisdomEnabled)   [delegate didOpenURL:WISDOM_SCHEME_URL];
+		if (eowEnabled)      [delegate didOpenURL:EOW_SCHEME_URL];
+		if (ebpocketEnabled) [delegate didOpenURL:EBPOCKET_SCHEME_URL];
+		if (safariEnabled)   [delegate didOpenURL:SAFARI_SCHEME_URL];
+	} else if (i > 2){
+		if (sheetStyle == 3) {
+			if (i > 5) {
+				[sheet setForceHorizontalButtonsLayout:YES];
+				[sheet setNumberOfRows:4];
 			}
+			[sheet show];
+		} else {
+			if (i > 5) {
+				[sheet setUseTwoColumnsButtonsLayout:YES];
+				[sheet setTwoColumnsLayoutMode:2];
+			}
+			[sheet showInView:self];
 		}
 	}
 }

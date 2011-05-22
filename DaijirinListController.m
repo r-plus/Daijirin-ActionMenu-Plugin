@@ -1,7 +1,7 @@
 #import <Preferences/Preferences.h>
 
-@interface DaijirinListController: PSListController
-@end
+__attribute__((visibility("hidden")))
+@interface DaijirinListController: PSListController @end
 
 @implementation DaijirinListController
 

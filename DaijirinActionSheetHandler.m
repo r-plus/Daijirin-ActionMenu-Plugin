@@ -7,6 +7,7 @@
 #define DAIJISEN_SCHEME_URL @"daijisen:operation=searchStartsWith;keyword="
 #define WISDOM_SCHEME_URL @"mkwisdom://jp.monokakido.WISDOM/search?text="
 #define EOW_SCHEME_URL @"eow://search?query="
+#define EBPOCKET_SCHEME_URL @"ebpocket://search?text="
 #define SAFARI_SCHEME_URL @"x-web-search:///?"
 
 @implementation DaijirinActionSheetHandler
@@ -29,6 +30,8 @@
 			[self didOpenURL:WISDOM_SCHEME_URL];
 		} else if ([title isEqualToString:@"EOW"]) {
 			[self didOpenURL:EOW_SCHEME_URL];
+		} else if ([title isEqualToString:@"EBPocket"]) {
+			[self didOpenURL:EBPOCKET_SCHEME_URL];
 		} else if ([title isEqualToString:@"Safari"]) {
 			[self didOpenURL:SAFARI_SCHEME_URL];
 		}
@@ -49,7 +52,8 @@
 	NSArray *URLTypes;
 	NSDictionary *URLType;
 	
-	BOOL URLSchemeEnabled = [[prefsDict objectForKey:@"Enabled"] boolValue] ?: YES;
+	BOOL URLSchemeEnabled = YES;
+	if ([prefsDict objectForKey:@"Enabled"] != nil) URLSchemeEnabled = [[prefsDict objectForKey:@"Enabled"] boolValue];
 	
 	NSString *identifier = [[NSBundle mainBundle] bundleIdentifier];
 	if ([identifier isEqualToString:@"com.apple.MobileSMS"]) { scheme = @"sms"; }
@@ -59,37 +63,48 @@
 			scheme = [[URLType objectForKey:@"CFBundleURLSchemes"] lastObject];
 		}
 	}
-	
+	//daijirin and daijirin with returnURL.
 	if ( ( [string isEqualToString:DAIJIRIN_SCHEME_URL] || [string isEqualToString:WISDOM_SCHEME_URL] ) &&
 			URLSchemeEnabled &&
 			URL_SCHEME_BLACKLIST &&
-		  scheme != nil) {
-		if ([identifier isEqualToString:@"com.apple.mobilesafari"]){
-			[string appendFormat:@"%@&srcname=%@&src=%@", selection, identifier, scheme];			
-		} else {
-			[string appendFormat:@"%@&srcname=%@&src=%@:", selection, identifier, scheme];
-		}
-	} else if (URLSchemeEnabled &&
+		  scheme != nil)
+	{
+		[string appendFormat:@"%@&srcname=%@&src=%@:", selection, identifier, scheme];
+	}
+	//EOW with returnURL.
+	else if (URLSchemeEnabled &&
 						 URL_SCHEME_BLACKLIST &&
 						 [string isEqualToString:EOW_SCHEME_URL] &&
-						 scheme != nil) {
-		if ([identifier isEqualToString:@"com.apple.mobilesafari"]){
-			[string appendFormat:@"%@&src=%@&callback=%@", selection, identifier, scheme];
-		} else {
-			[string appendFormat:@"%@&src=%@&callback=%@:", selection, identifier, scheme];
-		}
-  } else if ([string isEqualToString:DAIJISEN_SCHEME_URL]) {
+						 scheme != nil)
+	{
+		[string appendFormat:@"%@&src=%@&callback=%@:", selection, identifier, scheme];
+  }
+	//daijisen.
+	else if ([string isEqualToString:DAIJISEN_SCHEME_URL])
+	{
 		[string appendFormat:@"%@;", selection];
+		//daijisen append returnURL.
 		if (URLSchemeEnabled &&
 				URL_SCHEME_BLACKLIST &&
-				scheme != nil) {
-			if ([identifier isEqualToString:@"com.apple.mobilesafari"]){
-				[string appendFormat:@"appBackURL=%22%@%22;", scheme];
-			} else {
-				[string appendFormat:@"appBackURL=%22%@:%22;", scheme];
-			}
+				scheme != nil)
+		{
+				[string appendFormat:@"appBackURL=%@:;", scheme];
 		}
-	} else {
+	}
+	//EBPocket
+	else if ([string isEqualToString:EBPOCKET_SCHEME_URL])
+	{
+		[string appendFormat:@"%@", selection];
+		//EBPocket append returnURL.
+		if (URLSchemeEnabled &&
+				URL_SCHEME_BLACKLIST &&
+				scheme != nil)
+		{
+			[string appendFormat:@"#%@:", scheme];
+		}
+	}
+	else
+	{ //all app except daijisen with no returnURL.
 		[string appendFormat:@"%@",selection];
 	}
 	
