@@ -101,7 +101,7 @@
 
 - (BOOL)canDoDaijirin:(id)sender
 {
-	return [self respondsToSelector:@selector(insertText:)];
+	return ( [[self textualRepresentation] length] > 0 && [self respondsToSelector:@selector(selectAll)] ) ? YES : NO;
 }
 
 + (void)load
