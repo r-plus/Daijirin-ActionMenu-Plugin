@@ -6,6 +6,11 @@ Send to "Daijirin", "Daijisen", "Wisdom" and "Safari".
 ![](http://moreinfo.thebigboss.org/moreinfo/actionmenudaijirin3.png)
 
 ##ChangeLog
+1.4
+
+* [ADD] ALC[origin word] option. ( thanks @Sakurina )
+* [MOD] menu available conditions.
+
 1.3
 
 * [ADD] EBPocket(Professional) option.
@@ -76,6 +81,8 @@ Send to "Daijirin", "Daijisen", "Wisdom" and "Safari".
 
 ##Special Thanks
 
+Yanik Magnan @Sakurina (dynamic enable PSSwitchCell on PreferenceLoader)
+Ryan Petrich @rpetrich (ActionSheet's delegate instance release timing issue)
 moyashi @hitoriblog (applicationOpenURL method)  
 tom_go @tom_go (x-web-search:///? URL Scheme)
 

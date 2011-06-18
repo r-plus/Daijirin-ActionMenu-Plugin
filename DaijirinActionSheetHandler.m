@@ -9,6 +9,7 @@
 #define EOW_SCHEME_URL @"eow://search?query="
 #define EBPOCKET_SCHEME_URL @"ebpocket://search?text="
 #define SAFARI_SCHEME_URL @"x-web-search:///?"
+#define ALC_ORIGIN_OF_WORD_SCHEME_URL @"http://www.google.com/gwt/x?u=http://home.alc.co.jp/db/owa/etm_sch?instr="
 
 @implementation DaijirinActionSheetHandler
 
@@ -32,6 +33,8 @@
 			[self didOpenURL:EOW_SCHEME_URL];
 		} else if ([title isEqualToString:@"EBPocket"]) {
 			[self didOpenURL:EBPOCKET_SCHEME_URL];
+		} else if ([title isEqualToString:@"ALC語源"]) {
+			[self didOpenURL:ALC_ORIGIN_OF_WORD_SCHEME_URL];
 		} else if ([title isEqualToString:@"Safari"]) {
 			[self didOpenURL:SAFARI_SCHEME_URL];
 		}
@@ -101,6 +104,16 @@
 				scheme != nil)
 		{
 			[string appendFormat:@"#%@:", scheme];
+		}
+	}
+	//ALC_語源
+	else if ([string isEqualToString:ALC_ORIGIN_OF_WORD_SCHEME_URL])
+	{		
+		if ([[prefsDict objectForKey:@"ALCMobilizerEnabled"] boolValue]) {
+			[string appendFormat:@"%@%@stg=1&noimg=1", selection, @"%26"];
+		} else {
+			[string deleteCharactersInRange:NSMakeRange(0,[string length])];
+			[string appendFormat:@"http://home.alc.co.jp/db/owa/etm_sch?instr=%@&stg=1" , selection];
 		}
 	}
 	else

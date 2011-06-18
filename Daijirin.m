@@ -9,6 +9,7 @@
 #define EOW_SCHEME_URL @"eow://search?query="
 #define EBPOCKET_SCHEME_URL @"ebpocket://search?text="
 #define SAFARI_SCHEME_URL @"x-web-search:///?"
+#define ALC_ORIGIN_OF_WORD_SCHEME_URL @"http://www.google.com/gwt/x?u=http://home.alc.co.jp/db/owa/etm_sch?instr="
 
 @interface UIActionSheet (Daijirin)
 - (void)setUseTwoColumnsButtonsLayout:(BOOL)arg1;
@@ -62,6 +63,7 @@
 	BOOL wisdomEnabled = [[prefsDict objectForKey:@"WisdomEnabled"] boolValue];
 	BOOL eowEnabled = [[prefsDict objectForKey:@"EOWEnabled"] boolValue];
 	BOOL ebpocketEnabled = [[prefsDict objectForKey:@"EBPocketEnabled"] boolValue];
+	BOOL alcEnabled = [[prefsDict objectForKey:@"ALCEnabled"] boolValue];
 	BOOL safariEnabled = [[prefsDict objectForKey:@"SafariEnabled"] boolValue];
 	
 	if (daijirinEnabled) [sheet addButtonWithTitle:@"大辞林"];
@@ -69,6 +71,7 @@
 	if (wisdomEnabled)   [sheet addButtonWithTitle:@"Wisdom"];
 	if (eowEnabled)   [sheet addButtonWithTitle:@"EOW"];
 	if (ebpocketEnabled)   [sheet addButtonWithTitle:@"EBPocket"];
+	if (alcEnabled)   [sheet addButtonWithTitle:@"ALC語源"];
 	if (safariEnabled)   [sheet addButtonWithTitle:@"Safari"];
 	[sheet setCancelButtonIndex:[sheet addButtonWithTitle:@"Cancel"]];
 	
@@ -81,6 +84,7 @@
 		if (wisdomEnabled)   [delegate didOpenURL:WISDOM_SCHEME_URL];
 		if (eowEnabled)      [delegate didOpenURL:EOW_SCHEME_URL];
 		if (ebpocketEnabled) [delegate didOpenURL:EBPOCKET_SCHEME_URL];
+		if (alcEnabled) [delegate didOpenURL:ALC_ORIGIN_OF_WORD_SCHEME_URL];
 		if (safariEnabled)   [delegate didOpenURL:SAFARI_SCHEME_URL];
 	} else if (i > 2){
 		if (sheetStyle == 3) {

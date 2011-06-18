@@ -116,6 +116,40 @@
 			<key>defaults</key>
 			<string>jp.r-plus.amdaijirin</string>
 			<key>key</key>
+			<string>ALCEnabled</string>
+			<key>label</key>
+			<string>ALC[origin word]</string>
+			<key>icon</key>
+			<key>Safari.png</key>
+			<key>set</key>
+			<string>setMasterToggle:specifier:</string>
+			<key>id</key>
+			<string>ALCEnabledID</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>jp.r-plus.amdaijirin</string>
+			<key>key</key>
+			<string>ALCMobilizerEnabled</string>
+			<key>label</key>
+			<string>Mobilizer(ALC only)</string>
+			<key>enabled</key>
+			<false/>
+			<key>id</key>
+			<string>SlaveToggle</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>jp.r-plus.amdaijirin</string>
+			<key>key</key>
 			<string>SafariEnabled</string>
 			<key>label</key>
 			<string>Safari</string>
