@@ -1,6 +1,7 @@
 #import <UIKit/UIKit.h>
 #import "ActionMenu.h"
 #import "DaijirinActionSheetHandler.h"
+#import "SBTableAlert.h"
 
 #define PREFERENCE_PATH @"/var/mobile/Library/Preferences/jp.r-plus.amdaijirin.plist"
 #define DAIJIRIN_SCHEME_URL @"mkdaijirin://jp.monokakido.DAIJIRIN/search?text="
@@ -10,6 +11,13 @@
 #define EBPOCKET_SCHEME_URL @"ebpocket://search?text="
 #define SAFARI_SCHEME_URL @"x-web-search:///?"
 #define ALC_ORIGIN_OF_WORD_SCHEME_URL @"http://www.google.com/gwt/x?u=http://home.alc.co.jp/db/owa/etm_sch?instr="
+#define DICTIONARYCOM_SCHEME_URL @"dcom://dictionary/"
+#define LONGMAN_EE_SCHEME_URL @"ldoce://"
+#define LONGMAN_EJ_SCHEME_URL @"lejdict://"
+#define KOTOBA_SCHEME_URL @"kotoba://dictionary?search="
+#define POCKET_PROGRESSIVE_EJ_SCHEME_URL @"pocketprogressivee://"
+#define GURUDIC_SCHEME_URL @"gurudic:"
+#define RUIGO_SCHEME_URL @"mkruigo://jp.monokakido.RUIGO/search?text="
 
 @interface UIActionSheet (Daijirin)
 - (void)setUseTwoColumnsButtonsLayout:(BOOL)arg1;
@@ -63,6 +71,13 @@
 	BOOL wisdomEnabled = [[prefsDict objectForKey:@"WisdomEnabled"] boolValue];
 	BOOL eowEnabled = [[prefsDict objectForKey:@"EOWEnabled"] boolValue];
 	BOOL ebpocketEnabled = [[prefsDict objectForKey:@"EBPocketEnabled"] boolValue];
+	BOOL gurudicEnabled = [[prefsDict objectForKey:@"GuruDicEnabled"] boolValue];
+	BOOL pocketProgEJEnabled = [[prefsDict objectForKey:@"PocketProgressiveEJEnabled"] boolValue];
+	BOOL longmanEJEnabled = [[prefsDict objectForKey:@"LongmanEJEnabled"] boolValue];
+	BOOL longmanEEEnabled = [[prefsDict objectForKey:@"LongmanEEEnabled"] boolValue];
+	BOOL dictionarycomEnabled = [[prefsDict objectForKey:@"DictionarycomEnabled"] boolValue];
+	BOOL kotobaEnabled = [[prefsDict objectForKey:@"KotobaEnabled"] boolValue];
+	BOOL ruigoEnabled = [[prefsDict objectForKey:@"KadokawaRuigoEnabled"] boolValue];
 	BOOL alcEnabled = [[prefsDict objectForKey:@"ALCEnabled"] boolValue];
 	BOOL safariEnabled = [[prefsDict objectForKey:@"SafariEnabled"] boolValue];
 	
@@ -71,6 +86,13 @@
 	if (wisdomEnabled)   [sheet addButtonWithTitle:@"Wisdom"];
 	if (eowEnabled)   [sheet addButtonWithTitle:@"EOW"];
 	if (ebpocketEnabled)   [sheet addButtonWithTitle:@"EBPocket"];
+	if (gurudicEnabled)   [sheet addButtonWithTitle:@"GuruDic"];
+	if (pocketProgEJEnabled)   [sheet addButtonWithTitle:@"ポケプロ"];
+	if (longmanEJEnabled)   [sheet addButtonWithTitle:@"ロングマン英和"];
+	if (longmanEEEnabled)   [sheet addButtonWithTitle:@"ロングマン英英"];
+	if (dictionarycomEnabled)   [sheet addButtonWithTitle:@"Dictionary.com"];
+	if (kotobaEnabled)   [sheet addButtonWithTitle:@"Kotoba!"];
+	if (ruigoEnabled)   [sheet addButtonWithTitle:@"角川類語"];
 	if (alcEnabled)   [sheet addButtonWithTitle:@"ALC語源"];
 	if (safariEnabled)   [sheet addButtonWithTitle:@"Safari"];
 	[sheet setCancelButtonIndex:[sheet addButtonWithTitle:@"Cancel"]];
@@ -79,22 +101,49 @@
 	if (i == 1) {
 		[delegate didOpenURL:DAIJIRIN_SCHEME_URL];
 	} else if (i == 2) {
-		if (daijirinEnabled) [delegate didOpenURL:DAIJIRIN_SCHEME_URL];
-		if (daijisenEnabled) [delegate didOpenURL:DAIJISEN_SCHEME_URL];
-		if (wisdomEnabled)   [delegate didOpenURL:WISDOM_SCHEME_URL];
-		if (eowEnabled)      [delegate didOpenURL:EOW_SCHEME_URL];
-		if (ebpocketEnabled) [delegate didOpenURL:EBPOCKET_SCHEME_URL];
-		if (alcEnabled) [delegate didOpenURL:ALC_ORIGIN_OF_WORD_SCHEME_URL];
-		if (safariEnabled)   [delegate didOpenURL:SAFARI_SCHEME_URL];
+		if (daijirinEnabled)      [delegate didOpenURL:DAIJIRIN_SCHEME_URL];
+		if (daijisenEnabled)      [delegate didOpenURL:DAIJISEN_SCHEME_URL];
+		if (wisdomEnabled)        [delegate didOpenURL:WISDOM_SCHEME_URL];
+		if (eowEnabled)           [delegate didOpenURL:EOW_SCHEME_URL];
+		if (ebpocketEnabled)      [delegate didOpenURL:EBPOCKET_SCHEME_URL];
+		if (gurudicEnabled)       [delegate didOpenURL:GURUDIC_SCHEME_URL];
+		if (pocketProgEJEnabled)  [delegate didOpenURL:POCKET_PROGRESSIVE_EJ_SCHEME_URL];
+		if (longmanEJEnabled)     [delegate didOpenURL:LONGMAN_EJ_SCHEME_URL];
+		if (longmanEEEnabled)     [delegate didOpenURL:LONGMAN_EE_SCHEME_URL];
+		if (dictionarycomEnabled) [delegate didOpenURL:DICTIONARYCOM_SCHEME_URL];
+		if (kotobaEnabled)        [delegate didOpenURL:KOTOBA_SCHEME_URL];
+		if (ruigoEnabled)         [delegate didOpenURL:RUIGO_SCHEME_URL];
+		if (alcEnabled)           [delegate didOpenURL:ALC_ORIGIN_OF_WORD_SCHEME_URL];
+		if (safariEnabled)        [delegate didOpenURL:SAFARI_SCHEME_URL];
 	} else if (i > 2){
 		if (sheetStyle == 3) {
-			if (i > 5) {
+			if (i >= 9) {
+				SBTableAlert *alert;
+				/*
+				alert	= [[SBTableAlert alloc] initWithTitle:@"Single Select" cancelButtonTitle:@"Cancel" messageFormat:nil];
+				[alert.view setTag:1];
+				*/
+				//Apple Style
+				alert	= [[SBTableAlert alloc] initWithTitle:@"Send to" cancelButtonTitle:@"Cancel" messageFormat:nil];
+				[alert.view setTag:2];
+				[alert setStyle:SBTableAlertStyleApple];
+				
+				[alert setDelegate:delegate];
+				[alert setDataSource:delegate];
+
+				[delegate sendSheet:sheet];
+				[alert show];
+				
+				//[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+				return;
+			}
+			if (9 > i && i > 5) {
 				[sheet setForceHorizontalButtonsLayout:YES];
 				[sheet setNumberOfRows:4];
 			}
 			[sheet show];
 		} else {
-			if (i > 5) {
+			if (14 > i && i > 5) {
 				[sheet setUseTwoColumnsButtonsLayout:YES];
 				[sheet setTwoColumnsLayoutMode:2];
 			}

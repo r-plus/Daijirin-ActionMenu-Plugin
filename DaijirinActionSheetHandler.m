@@ -1,6 +1,7 @@
 #import <UIKit/UIKit.h>
 #import <SpringBoard/SpringBoard.h>
 #import "DaijirinActionSheetHandler.h"
+#import "SBTableAlert.h"
 
 #define URL_SCHEME_BLACKLIST (![identifier isEqualToString:@"com.apple.Maps"] && ![identifier isEqualToString:@"com.apple.iBooks"] && ![identifier isEqualToString:@"com.apple.mobilesafari"])
 #define DAIJIRIN_SCHEME_URL @"mkdaijirin://jp.monokakido.DAIJIRIN/search?text="
@@ -10,10 +11,49 @@
 #define EBPOCKET_SCHEME_URL @"ebpocket://search?text="
 #define SAFARI_SCHEME_URL @"x-web-search:///?"
 #define ALC_ORIGIN_OF_WORD_SCHEME_URL @"http://www.google.com/gwt/x?u=http://home.alc.co.jp/db/owa/etm_sch?instr="
+#define DICTIONARYCOM_SCHEME_URL @"dcom://dictionary/"
+#define LONGMAN_EE_SCHEME_URL @"ldoce://"
+#define LONGMAN_EJ_SCHEME_URL @"lejdict://"
+#define KOTOBA_SCHEME_URL @"kotoba://dictionary?search="
+#define POCKET_PROGRESSIVE_EJ_SCHEME_URL @"pocketprogressivee://"
+#define GURUDIC_SCHEME_URL @"gurudic:"
+#define RUIGO_SCHEME_URL @"mkruigo://jp.monokakido.RUIGO/search?text="
 
 @implementation DaijirinActionSheetHandler
 
 @synthesize selection, prefsDict;
+
+- (void)selectScheme:(NSString *)title
+{
+	if ([title isEqualToString:@"大辞林"])
+		[self didOpenURL:DAIJIRIN_SCHEME_URL];
+	else if ([title isEqualToString:@"大辞泉"])
+		[self didOpenURL:DAIJISEN_SCHEME_URL];
+	else if ([title isEqualToString:@"Wisdom"])
+		[self didOpenURL:WISDOM_SCHEME_URL];
+	else if ([title isEqualToString:@"EOW"])
+		[self didOpenURL:EOW_SCHEME_URL];
+	else if ([title isEqualToString:@"EBPocket"])
+		[self didOpenURL:EBPOCKET_SCHEME_URL];
+	else if ([title isEqualToString:@"GuruDic"])
+		[self didOpenURL:GURUDIC_SCHEME_URL];
+	else if ([title isEqualToString:@"ポケプロ"])
+		[self didOpenURL:POCKET_PROGRESSIVE_EJ_SCHEME_URL];
+	else if ([title isEqualToString:@"ロングマン英和"])
+		[self didOpenURL:LONGMAN_EJ_SCHEME_URL];
+	else if ([title isEqualToString:@"ロングマン英英"])
+		[self didOpenURL:LONGMAN_EE_SCHEME_URL];
+	else if ([title isEqualToString:@"Dictionary.com"])
+		[self didOpenURL:DICTIONARYCOM_SCHEME_URL];
+	else if ([title isEqualToString:@"Kotoba!"])
+		[self didOpenURL:KOTOBA_SCHEME_URL];
+	else if ([title isEqualToString:@"角川類語"])
+		[self didOpenURL:RUIGO_SCHEME_URL];
+	else if ([title isEqualToString:@"ALC語源"])
+		[self didOpenURL:ALC_ORIGIN_OF_WORD_SCHEME_URL];
+	else if ([title isEqualToString:@"Safari"])
+		[self didOpenURL:SAFARI_SCHEME_URL];
+}
 
 - (void)alertSheet:(UIActionSheet *)sheet buttonClicked:(int)button
 {
@@ -22,23 +62,9 @@
 	NSString *title = [sheet buttonTitleAtIndex:button];
 	button++;
 	
-	if ([context isEqualToString:@"amDaijirin"]) {
-		if ([title isEqualToString:@"大辞林"]) {
-			[self didOpenURL:DAIJIRIN_SCHEME_URL];
-		} else if ([title isEqualToString:@"大辞泉"]) {
-			[self didOpenURL:DAIJISEN_SCHEME_URL];
-		} else if ([title isEqualToString:@"Wisdom"]) {
-			[self didOpenURL:WISDOM_SCHEME_URL];
-		} else if ([title isEqualToString:@"EOW"]) {
-			[self didOpenURL:EOW_SCHEME_URL];
-		} else if ([title isEqualToString:@"EBPocket"]) {
-			[self didOpenURL:EBPOCKET_SCHEME_URL];
-		} else if ([title isEqualToString:@"ALC語源"]) {
-			[self didOpenURL:ALC_ORIGIN_OF_WORD_SCHEME_URL];
-		} else if ([title isEqualToString:@"Safari"]) {
-			[self didOpenURL:SAFARI_SCHEME_URL];
-		}
-	}
+	if ([context isEqualToString:@"amDaijirin"])
+		[self selectScheme:title];
+	
 	[sheet dismiss];
 	sheet.delegate = nil;
 }
@@ -47,30 +73,30 @@
 {
 	NSMutableString *string = [[NSMutableString alloc] initWithString:URLScheme];
 	
-	if ([selection length] > 0) {
+	if ([selection length] > 0)
 		selection = [selection stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	}
 	
 	NSString *scheme = nil;
 	NSArray *URLTypes;
 	NSDictionary *URLType;
 	
 	BOOL URLSchemeEnabled = YES;
-	if ([prefsDict objectForKey:@"Enabled"] != nil) URLSchemeEnabled = [[prefsDict objectForKey:@"Enabled"] boolValue];
+	if ([prefsDict objectForKey:@"Enabled"] != nil)
+		URLSchemeEnabled = [[prefsDict objectForKey:@"Enabled"] boolValue];
 	
 	NSString *identifier = [[NSBundle mainBundle] bundleIdentifier];
-	if ([identifier isEqualToString:@"com.apple.MobileSMS"]) { scheme = @"sms"; }
+	if ([identifier isEqualToString:@"com.apple.MobileSMS"])
+		scheme = @"sms";
 	
-	if ((URLTypes = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleURLTypes"])) {
-		if ((URLType = [URLTypes lastObject])) {
+	if ((URLTypes = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleURLTypes"]))
+		if ((URLType = [URLTypes lastObject]))
 			scheme = [[URLType objectForKey:@"CFBundleURLSchemes"] lastObject];
-		}
-	}
-	//daijirin and daijirin with returnURL.
-	if ( ( [string isEqualToString:DAIJIRIN_SCHEME_URL] || [string isEqualToString:WISDOM_SCHEME_URL] ) &&
-			URLSchemeEnabled &&
-			URL_SCHEME_BLACKLIST &&
-		  scheme != nil)
+
+	//daijirin, ruigo and wisdom with returnURL.
+	if ( ( [string isEqualToString:DAIJIRIN_SCHEME_URL] || [string isEqualToString:WISDOM_SCHEME_URL] || [string isEqualToString:RUIGO_SCHEME_URL] )
+			&& URLSchemeEnabled
+			&& URL_SCHEME_BLACKLIST
+		  && scheme != nil)
 	{
 		[string appendFormat:@"%@&srcname=%@&src=%@:", selection, identifier, scheme];
 	}
@@ -117,17 +143,83 @@
 		}
 	}
 	else
-	{ //all app except daijisen with no returnURL.
+	{ //(NO returnURLScheme) all app except daijisen.
 		[string appendFormat:@"%@",selection];
 	}
 	
-	if ([identifier isEqualToString:@"com.apple.springboard"]){
-		[[UIApplication sharedApplication] applicationOpenURL:[NSURL URLWithString:string]];
-	} else {
-		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:string]];
+	//Append Longman
+	if ([string isEqualToString:LONGMAN_EE_SCHEME_URL] || [string isEqualToString:LONGMAN_EJ_SCHEME_URL]){
+		[string appendString:@"?exact=on"];
+		if (URLSchemeEnabled)
+			[string appendFormat:@"&back=%@:", scheme];
 	}
+	
+	if ([identifier isEqualToString:@"com.apple.springboard"])
+		[[UIApplication sharedApplication] applicationOpenURL:[NSURL URLWithString:string]];
+	else
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:string]];
+
 	[string release];
 	[self autorelease];
+}
+
+- (void)sendSheet:(id)sheet
+{
+	NSInteger numberOfButtons = [sheet numberOfButtons] -1;
+	sheetTitles = [[NSMutableArray alloc] init];
+	
+	for (NSInteger i=0; i<numberOfButtons; i++)
+		[sheetTitles addObject:[sheet buttonTitleAtIndex:i]];
+}
+
+#pragma mark - SBTableAlertDataSource
+
+- (UITableViewCell *)tableAlert:(SBTableAlert *)tableAlert cellForRow:(NSInteger)row {
+	UITableViewCell *cell;
+	
+//	if (tableAlert.view.tag == 0 || tableAlert.view.tag == 1) {
+//		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
+//	} else if (tableAlert.view.tag == 2) {
+		// Note: SBTableAlertCell
+		cell = [[[SBTableAlertCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
+//	}
+	
+	[cell.textLabel setText:[sheetTitles objectAtIndex:row]];
+	
+	return cell;
+}
+
+- (NSInteger)numberOfRowsInTableAlert:(SBTableAlert *)tableAlert {
+//	if (tableAlert.type == SBTableAlertTypeSingleSelect)
+		return [sheetTitles count];
+	/*
+	else
+		return 10;
+	*/
+}
+
+#pragma mark - SBTableAlertDelegate
+
+- (void)tableAlert:(SBTableAlert *)tableAlert didSelectRow:(NSInteger)row {
+/*
+	if (tableAlert.type == SBTableAlertTypeMultipleSelct) {
+		UITableViewCell *cell = [tableAlert.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
+		if (cell.accessoryType == UITableViewCellAccessoryNone)
+			[cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+		else
+			[cell setAccessoryType:UITableViewCellAccessoryNone];
+		
+		[tableAlert.tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0] animated:YES];
+	}
+*/
+	NSString *dictTitle = [tableAlert.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]].textLabel.text;
+	[self retain];
+	[self selectScheme:dictTitle];	
+}
+
+- (void)tableAlert:(SBTableAlert *)tableAlert didDismissWithButtonIndex:(NSInteger)buttonIndex {
+	[tableAlert release];
+	[sheetTitles release];
 }
 
 @end
