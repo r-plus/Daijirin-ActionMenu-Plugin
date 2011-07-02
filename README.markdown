@@ -6,6 +6,11 @@ Send to "Daijirin", "Daijisen", "Wisdom" and "Safari".
 ![](http://moreinfo.thebigboss.org/moreinfo/actionmenudaijirin3.png)
 
 ##ChangeLog
+1.11
+
+* [ADD] many options
+* [MOD] Daijisen.png
+
 1.4
 
 * [ADD] ALC[origin word] option. ( thanks @Sakurina )
@@ -81,8 +86,9 @@ Send to "Daijirin", "Daijisen", "Wisdom" and "Safari".
 
 ##Special Thanks
 
-Yanik Magnan @Sakurina (dynamic enable PSSwitchCell on PreferenceLoader)
-Ryan Petrich @rpetrich (ActionSheet's delegate instance release timing issue)
+Simon Blommegard (SBTableAlert)  
+Yanik Magnan @Sakurina (dynamic enable PSSwitchCell on PreferenceLoader)  
+Ryan Petrich @rpetrich (ActionSheet's delegate instance release timing issue)  
 moyashi @hitoriblog (applicationOpenURL method)  
 tom_go @tom_go (x-web-search:///? URL Scheme)
 
