@@ -6,4 +6,6 @@ Daijirin_INSTALL_PATH = /Library/ActionMenu/Plugins
 Daijirin_FRAMEWORKS = UIKit CoreGraphics
 Daijirin_PRIVATE_FRAMEWORKS = Preferences
 
+OPTFLAG = -Os
+
 include $(THEOS_MAKE_PATH)/bundle.mk
