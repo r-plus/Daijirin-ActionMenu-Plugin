@@ -2,7 +2,7 @@
 #define URL_SCHEME_BLACKLIST (![identifier isEqualToString:@"com.apple.Maps"] && ![identifier isEqualToString:@"com.apple.iBooks"] && ![identifier isEqualToString:@"com.apple.mobilesafari"])
 
 #define DAIJIRIN_SCHEME_URL @"mkdaijirin://jp.monokakido.DAIJIRIN/search?text="
-#define DAIJISEN_SCHEME_URL @"daijisen:operation=searchStartsWith;keyword="
+#define DAIJISEN_SCHEME_URL @"daijisen:keyword="
 #define WISDOM_SCHEME_URL @"mkwisdom://jp.monokakido.WISDOM/search?text="
 #define EOW_SCHEME_URL @"eow://search?query="
 #define EBPOCKET_SCHEME_URL @"ebpocket://search?text="
