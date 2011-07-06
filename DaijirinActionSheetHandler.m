@@ -38,6 +38,8 @@
 		[self didOpenURL:ALC_ORIGIN_OF_WORD_SCHEME_URL];
 	else if ([title isEqualToString:@"Safari"])
 		[self didOpenURL:SAFARI_SCHEME_URL];
+	else
+		[self autorelease];
 }
 
 - (void)alertSheet:(UIActionSheet *)sheet buttonClicked:(int)button
