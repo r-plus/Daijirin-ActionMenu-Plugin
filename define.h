@@ -15,4 +15,4 @@
 #define POCKET_PROGRESSIVE_EJ_SCHEME_URL @"pocketprogressivee://"
 #define GURUDIC_SCHEME_URL @"gurudic:"
 #define RUIGO_SCHEME_URL @"mkruigo://jp.monokakido.RUIGO/search?text="
-
+#define KOJIEN_SCHEME_URL @"LVEDKojien6://lookup?query="

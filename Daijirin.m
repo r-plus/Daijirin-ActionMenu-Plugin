@@ -53,6 +53,7 @@
 	BOOL daijirinEnabled = YES;
 	if([prefsDict objectForKey:@"DaijirinEnabled"] != nil) daijirinEnabled = [[prefsDict objectForKey:@"DaijirinEnabled"] boolValue];
 	BOOL daijisenEnabled = [[prefsDict objectForKey:@"DaijisenEnabled"] boolValue];
+	BOOL kojienEnabled = [[prefsDict objectForKey:@"KojienEnabled"] boolValue];
 	BOOL wisdomEnabled = [[prefsDict objectForKey:@"WisdomEnabled"] boolValue];
 	BOOL eowEnabled = [[prefsDict objectForKey:@"EOWEnabled"] boolValue];
 	BOOL ebpocketEnabled = [[prefsDict objectForKey:@"EBPocketEnabled"] boolValue];
@@ -68,6 +69,7 @@
 	
 	if (daijirinEnabled) [sheet addButtonWithTitle:@"大辞林"];
 	if (daijisenEnabled) [sheet addButtonWithTitle:@"大辞泉"];
+	if (kojienEnabled) [sheet addButtonWithTitle:@"広辞苑"];
 	if (wisdomEnabled)   [sheet addButtonWithTitle:@"Wisdom"];
 	if (eowEnabled)   [sheet addButtonWithTitle:@"EOW"];
 	if (ebpocketEnabled)   [sheet addButtonWithTitle:@"EBPocket"];
@@ -88,6 +90,7 @@
 	} else if (i == 2) {
 		if (daijirinEnabled)      [delegate didOpenURL:DAIJIRIN_SCHEME_URL];
 		if (daijisenEnabled)      [delegate didOpenURL:DAIJISEN_SCHEME_URL];
+		if (kojienEnabled)        [delegate didOpenURL:KOJIEN_SCHEME_URL];
 		if (wisdomEnabled)        [delegate didOpenURL:WISDOM_SCHEME_URL];
 		if (eowEnabled)           [delegate didOpenURL:EOW_SCHEME_URL];
 		if (ebpocketEnabled)      [delegate didOpenURL:EBPOCKET_SCHEME_URL];

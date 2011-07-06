@@ -14,6 +14,8 @@
 		[self didOpenURL:DAIJIRIN_SCHEME_URL];
 	else if ([title isEqualToString:@"大辞泉"])
 		[self didOpenURL:DAIJISEN_SCHEME_URL];
+	else if ([title isEqualToString:@"広辞苑"])
+		[self didOpenURL:KOJIEN_SCHEME_URL];
 	else if ([title isEqualToString:@"Wisdom"])
 		[self didOpenURL:WISDOM_SCHEME_URL];
 	else if ([title isEqualToString:@"EOW"])
