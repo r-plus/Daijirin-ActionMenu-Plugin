@@ -100,14 +100,27 @@
 	//daijisen.
 	else if ([string isEqualToString:DAIJISEN_SCHEME_URL])
 	{
-		[string appendFormat:@"%@;", selection];
+		NSMutableDictionary *param;
+    param = [NSMutableDictionary dictionary];
+		[param setObject:selection forKey:@"keyword"];
+		
 		//daijisen append returnURL.
 		if (URLSchemeEnabled &&
 				URL_SCHEME_BLACKLIST &&
 				scheme != nil)
 		{
-			[string appendFormat:@"appBackURL=%@:;", scheme];
+			[param setObject:[scheme stringByAppendingString:@":"] forKey:@"appBackURL"];
 		}
+
+		NSMutableString *urlString;
+    urlString = [NSMutableString stringWithString:
+								 [[param description] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    
+    // Add scheme
+    [urlString insertString:[NSString stringWithFormat:@"%@:", @"daijisen"] atIndex:0];
+		// Copy string
+		[string deleteCharactersInRange:NSMakeRange(0,[string length])];
+		string = [urlString copy];
 	}
 	//EBPocket
 	else if ([string isEqualToString:EBPOCKET_SCHEME_URL])
