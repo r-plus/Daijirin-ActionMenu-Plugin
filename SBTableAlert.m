@@ -179,13 +179,15 @@
 		[_tableView setBackgroundColor:[UIColor whiteColor]];
 		[_tableView setRowHeight:kDefaultRowHeight];
 		[_tableView setSeparatorColor:[UIColor lightGrayColor]];
-		_tableView.layer.cornerRadius = kTableCornerRadius;
+		[_tableView.layer setCornerRadius:kTableCornerRadius];
 		
 		[_alertView addSubview:_tableView];
 		
 		_shadow = [[SBTableViewTopShadowView alloc] initWithFrame:CGRectZero];
 		[_shadow setBackgroundColor:[UIColor clearColor]];
 		[_shadow setHidden:YES];
+		[_shadow.layer setCornerRadius:kTableCornerRadius];
+		[_shadow.layer setMasksToBounds:YES];
 		
 		[_alertView addSubview:_shadow];
 		[_alertView bringSubviewToFront:_shadow];
@@ -326,6 +328,7 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex {
+	_presented = NO;
 	if ([_delegate respondsToSelector:@selector(tableAlert:willDismissWithButtonIndex:)])
 		[_delegate tableAlert:self willDismissWithButtonIndex:buttonIndex];
 }
