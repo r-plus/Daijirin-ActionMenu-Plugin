@@ -6,6 +6,12 @@ Send to "Daijirin", "Daijisen", "Wisdom" and "Safari".
 ![](http://moreinfo.thebigboss.org/moreinfo/actionmenudaijirin3.png)
 
 ##ChangeLog
+1.12
+
+* [ADD] Kojien option
+* [FIX] Daijisen crash issue
+* [FIX] tiny memory leak
+
 1.11
 
 * [ADD] many options
@@ -94,9 +100,9 @@ tom_go @tom_go (x-web-search:///? URL Scheme)
 
 ## License
 
-The New BSD License ( 2-Clause BSD License )
+Simplified BSD License ( "2-Clause BSD License" or "FreeBSD License" )
 
-Copyright (C) 2010 r_plus All rights reserved.
+Copyright (C) 2010-2011 r_plus All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
