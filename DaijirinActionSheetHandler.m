@@ -62,6 +62,7 @@
 {
 	NSMutableString *string = [[NSMutableString alloc] initWithString:URLScheme];
 	
+	NSString *rawString = [selection copy];// for Daijisen
 	if ([selection length] > 0)
 		selection = [selection stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	
@@ -102,8 +103,7 @@
 	{
 		NSMutableDictionary *param;
     param = [NSMutableDictionary dictionary];
-		[param setObject:selection forKey:@"keyword"];
-		
+		[param setObject:rawString forKey:@"keyword"];
 		//daijisen append returnURL.
 		if (URLSchemeEnabled &&
 				URL_SCHEME_BLACKLIST &&
