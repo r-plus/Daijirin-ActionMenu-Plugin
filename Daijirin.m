@@ -135,7 +135,7 @@
 				[sheet setUseTwoColumnsButtonsLayout:YES];
 				[sheet setTwoColumnsLayoutMode:2];
 			}
-			[sheet showInView:self];
+			[sheet showInView:[self.window.subviews objectAtIndex:0]];
 		}
 	}
 }
