@@ -131,7 +131,10 @@
 			}
 			[sheet show];
 		} else {
-			if (14 > i && i > 5) {
+			NSString* model = [[UIDevice currentDevice] model];
+			BOOL isPad = [model isEqualToString:@"iPad"];
+
+			if (!isPad && 14 > i && i > 5) {
 				[sheet setUseTwoColumnsButtonsLayout:YES];
 				[sheet setTwoColumnsLayoutMode:2];
 			}
