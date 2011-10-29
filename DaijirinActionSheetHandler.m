@@ -38,6 +38,8 @@
 		[self didOpenURL:RUIGO_SCHEME_URL];
 	else if ([title isEqualToString:@"ALC語源"])
 		[self didOpenURL:ALC_ORIGIN_OF_WORD_SCHEME_URL];
+	else if ([title isEqualToString:@"Excite"])
+		[self didOpenURL:EXCITE_SCHEME_URL];
 	else if ([title isEqualToString:@"Safari"])
 		[self didOpenURL:SAFARI_SCHEME_URL];
 	else
@@ -63,7 +65,7 @@
 	NSMutableString *string = [[NSMutableString alloc] initWithString:URLScheme];
 	
 	NSString *rawString = [selection copy];// for Daijisen
-	if ([selection length] > 0)
+	if ([selection length] > 0 && ![string isEqualToString:EXCITE_SCHEME_URL])
 		selection = [selection stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	
 	NSString *scheme = nil;
@@ -144,7 +146,7 @@
 			[string appendFormat:@"http://home.alc.co.jp/db/owa/etm_sch?instr=%@&stg=1" , selection];
 		}
 	}
-	else
+	else if (![string isEqualToString:EXCITE_SCHEME_URL])
 	{ //(NO returnURLScheme) all app except daijisen.
 		[string appendFormat:@"%@",selection];
 	}
@@ -156,13 +158,27 @@
 			[string appendFormat:@"&back=%@:", scheme];
 	}
 	
+  // clipboard for excite
+  if ([string isEqualToString:EXCITE_SCHEME_URL]) {
+    static NSString *const PasteboardName = @"jp.co.excite.translate";
+    UIPasteboard *pb = [UIPasteboard pasteboardWithName:PasteboardName create:YES];
+    if (pb.changeCount < 0) {
+      [UIPasteboard removePasteboardWithName:PasteboardName];
+      pb = [UIPasteboard pasteboardWithName:PasteboardName create:YES];
+    }
+    pb.persistent = YES;
+    [pb setString:selection];
+  }
+  
+  // openURL
 	if ([identifier isEqualToString:@"com.apple.springboard"])
 		[[UIApplication sharedApplication] applicationOpenURL:[NSURL URLWithString:string]];
 	else
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:string]];
 
 	[string release];
-	[self autorelease];
+	[self release];
+  self = nil;
 }
 
 - (void)sendSheet:(id)sheet

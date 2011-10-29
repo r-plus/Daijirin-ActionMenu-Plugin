@@ -65,6 +65,7 @@
 	BOOL kotobaEnabled = [[prefsDict objectForKey:@"KotobaEnabled"] boolValue];
 	BOOL ruigoEnabled = [[prefsDict objectForKey:@"KadokawaRuigoEnabled"] boolValue];
 	BOOL alcEnabled = [[prefsDict objectForKey:@"ALCEnabled"] boolValue];
+	BOOL exciteEnabled = [[prefsDict objectForKey:@"ExciteEnabled"] boolValue];
 	BOOL safariEnabled = [[prefsDict objectForKey:@"SafariEnabled"] boolValue];
 	
 	if (daijirinEnabled) [sheet addButtonWithTitle:@"大辞林"];
@@ -81,6 +82,7 @@
 	if (kotobaEnabled)   [sheet addButtonWithTitle:@"Kotoba!"];
 	if (ruigoEnabled)   [sheet addButtonWithTitle:@"角川類語"];
 	if (alcEnabled)   [sheet addButtonWithTitle:@"ALC語源"];
+	if (exciteEnabled)   [sheet addButtonWithTitle:@"Excite"];
 	if (safariEnabled)   [sheet addButtonWithTitle:@"Safari"];
 	[sheet setCancelButtonIndex:[sheet addButtonWithTitle:@"Cancel"]];
 	
@@ -102,6 +104,7 @@
 		if (kotobaEnabled)        [delegate didOpenURL:KOTOBA_SCHEME_URL];
 		if (ruigoEnabled)         [delegate didOpenURL:RUIGO_SCHEME_URL];
 		if (alcEnabled)           [delegate didOpenURL:ALC_ORIGIN_OF_WORD_SCHEME_URL];
+		if (exciteEnabled)        [delegate didOpenURL:EXCITE_SCHEME_URL];
 		if (safariEnabled)        [delegate didOpenURL:SAFARI_SCHEME_URL];
 	} else if (i > 2){
 		if (sheetStyle == 3) {

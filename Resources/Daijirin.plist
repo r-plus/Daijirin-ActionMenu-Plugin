@@ -262,6 +262,20 @@
 			<key>defaults</key>
 			<string>jp.r-plus.amdaijirin</string>
 			<key>key</key>
+			<string>ExciteEnabled</string>
+			<key>label</key>
+			<string>ExciteTranslate</string>
+			<key>icon</key>
+			<key>Excite.png</key>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>jp.r-plus.amdaijirin</string>
+			<key>key</key>
 			<string>SafariEnabled</string>
 			<key>label</key>
 			<string>Safari</string>
