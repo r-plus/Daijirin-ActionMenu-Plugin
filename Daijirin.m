@@ -58,6 +58,7 @@
 	BOOL eowEnabled = [[prefsDict objectForKey:@"EOWEnabled"] boolValue];
 	BOOL ebpocketEnabled = [[prefsDict objectForKey:@"EBPocketEnabled"] boolValue];
 	BOOL gurudicEnabled = [[prefsDict objectForKey:@"GuruDicEnabled"] boolValue];
+	BOOL midoriEnabled = [[prefsDict objectForKey:@"MidoriEnabled"] boolValue];
 	BOOL pocketProgEJEnabled = [[prefsDict objectForKey:@"PocketProgressiveEJEnabled"] boolValue];
 	BOOL longmanEJEnabled = [[prefsDict objectForKey:@"LongmanEJEnabled"] boolValue];
 	BOOL longmanEEEnabled = [[prefsDict objectForKey:@"LongmanEEEnabled"] boolValue];
@@ -75,6 +76,7 @@
 	if (eowEnabled)   [sheet addButtonWithTitle:@"EOW"];
 	if (ebpocketEnabled)   [sheet addButtonWithTitle:@"EBPocket"];
 	if (gurudicEnabled)   [sheet addButtonWithTitle:@"GuruDic"];
+	if (midoriEnabled)   [sheet addButtonWithTitle:@"Midori"];
 	if (pocketProgEJEnabled)   [sheet addButtonWithTitle:@"ポケプロ"];
 	if (longmanEJEnabled)   [sheet addButtonWithTitle:@"ロングマン英和"];
 	if (longmanEEEnabled)   [sheet addButtonWithTitle:@"ロングマン英英"];
@@ -97,6 +99,7 @@
 		if (eowEnabled)           [delegate didOpenURL:EOW_SCHEME_URL];
 		if (ebpocketEnabled)      [delegate didOpenURL:EBPOCKET_SCHEME_URL];
 		if (gurudicEnabled)       [delegate didOpenURL:GURUDIC_SCHEME_URL];
+		if (midoriEnabled)        [delegate didOpenURL:MIDORI_SCHEME_URL];
 		if (pocketProgEJEnabled)  [delegate didOpenURL:POCKET_PROGRESSIVE_EJ_SCHEME_URL];
 		if (longmanEJEnabled)     [delegate didOpenURL:LONGMAN_EJ_SCHEME_URL];
 		if (longmanEEEnabled)     [delegate didOpenURL:LONGMAN_EE_SCHEME_URL];

@@ -144,6 +144,20 @@
 			<key>defaults</key>
 			<string>jp.r-plus.amdaijirin</string>
 			<key>key</key>
+			<string>MidoriEnabled</string>
+			<key>label</key>
+			<string>MidoriDictionary</string>
+			<key>icon</key>
+			<key>Midori.png</key>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>jp.r-plus.amdaijirin</string>
+			<key>key</key>
 			<string>PocketProgressiveEJEnabled</string>
 			<key>label</key>
 			<string>PocketProg.EJ</string>

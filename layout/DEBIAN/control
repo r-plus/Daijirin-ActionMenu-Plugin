@@ -4,10 +4,9 @@ Author: r_plus <anasthasia.r+daijirin@gmail.com>
 Maintainer: BigBoss <bigboss@thebigboss.org>
 Name: Daijirin ActionMenu Plugin
 Package: jp.r-plus.actionmenudaijirin
-Depends: actionmenu, mobilesubstrate
-Conflicts: jp.r-plus.amdaijirin
+Depends: actionmenu
 Section: App Addons
-Version: 1.13
+Version: 1.14
 Architecture: iphoneos-arm
 Description: send text to DAIJIRIN dictionary app
 dev: rplus

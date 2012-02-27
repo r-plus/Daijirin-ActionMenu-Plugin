@@ -24,6 +24,8 @@
 		[self didOpenURL:EBPOCKET_SCHEME_URL];
 	else if ([title isEqualToString:@"GuruDic"])
 		[self didOpenURL:GURUDIC_SCHEME_URL];
+	else if ([title isEqualToString:@"Midori"])
+		[self didOpenURL:MIDORI_SCHEME_URL];
 	else if ([title isEqualToString:@"ポケプロ"])
 		[self didOpenURL:POCKET_PROGRESSIVE_EJ_SCHEME_URL];
 	else if ([title isEqualToString:@"ロングマン英和"])

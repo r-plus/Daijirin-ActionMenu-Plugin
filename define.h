@@ -18,3 +18,4 @@
 #define KOJIEN_SCHEME_URL @"LVEDKojien6://lookup?query="
 #define EXCITE_SCHEME_URL @"excitetranslate://jp.co.excite.world.english"
 #define DEFINITION_SCHEME_URL @"define://"
+#define MIDORI_SCHEME_URL @"midori://search?text="
