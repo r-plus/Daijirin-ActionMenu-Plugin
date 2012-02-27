@@ -6,6 +6,10 @@ Send to "Daijirin", "Daijisen", "Wisdom" and "Safari".
 ![](http://moreinfo.thebigboss.org/moreinfo/actionmenudaijirin3.png)
 
 ##ChangeLog
+1.14
+
+* [ADD] Midori Dictionary option
+
 1.13
 
 * [ADD] Excite option
