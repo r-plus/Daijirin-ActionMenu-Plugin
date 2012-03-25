@@ -67,6 +67,7 @@
 	BOOL ruigoEnabled = [[prefsDict objectForKey:@"KadokawaRuigoEnabled"] boolValue];
 	BOOL alcEnabled = [[prefsDict objectForKey:@"ALCEnabled"] boolValue];
 	BOOL exciteEnabled = [[prefsDict objectForKey:@"ExciteEnabled"] boolValue];
+	BOOL googleTranslateEnabled = [[prefsDict objectForKey:@"GoogleTranslateEnabled"] boolValue];
 	BOOL safariEnabled = [[prefsDict objectForKey:@"SafariEnabled"] boolValue];
 	
 	if (daijirinEnabled) [sheet addButtonWithTitle:@"大辞林"];
@@ -85,6 +86,7 @@
 	if (ruigoEnabled)   [sheet addButtonWithTitle:@"角川類語"];
 	if (alcEnabled)   [sheet addButtonWithTitle:@"ALC語源"];
 	if (exciteEnabled)   [sheet addButtonWithTitle:@"Excite"];
+	if (googleTranslateEnabled)   [sheet addButtonWithTitle:@"Google"];
 	if (safariEnabled)   [sheet addButtonWithTitle:@"Safari"];
 	[sheet setCancelButtonIndex:[sheet addButtonWithTitle:@"Cancel"]];
 	
@@ -108,6 +110,7 @@
 		if (ruigoEnabled)         [delegate didOpenURL:RUIGO_SCHEME_URL];
 		if (alcEnabled)           [delegate didOpenURL:ALC_ORIGIN_OF_WORD_SCHEME_URL];
 		if (exciteEnabled)        [delegate didOpenURL:EXCITE_SCHEME_URL];
+		if (googleTranslateEnabled)        [delegate didOpenURL:GOOGLE_SCHEME_URL];
 		if (safariEnabled)        [delegate didOpenURL:SAFARI_SCHEME_URL];
 	} else if (i > 2){
 		if (sheetStyle == 3) {

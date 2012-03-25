@@ -9,3 +9,10 @@ Daijirin_PRIVATE_FRAMEWORKS = Preferences
 OPTFLAG = -Os
 
 include $(THEOS_MAKE_PATH)/bundle.mk
+
+TWEAK_NAME = DaijirinGT
+DaijirinGT_FILES = Tweak.xm
+#DaijirinGT_FRAMEWORKS = UIKit
+
+include $(THEOS_MAKE_PATH)/tweak.mk
+
