@@ -147,7 +147,7 @@
 				[sheet setUseTwoColumnsButtonsLayout:YES];
 				[sheet setTwoColumnsLayoutMode:2];
 			}
-			[sheet showInView:[self.window.subviews objectAtIndex:0]];
+			[sheet showInView:[[UIApplication sharedApplication] keyWindow]];
 		}
 	}
 }
