@@ -10,6 +10,14 @@
 - (void)setForceHorizontalButtonsLayout:(BOOL)arg1;
 @end
 
+/*
+typedef enum {
+  UIActionSheetStyleAutomatic        = -1,
+  UIActionSheetStyleDefault          = UIBarStyleDefault,
+  UIActionSheetStyleBlackTranslucent = UIBarStyleBlackTranslucent,
+  UIActionSheetStyleBlackOpaque      = UIBarStyleBlackOpaque,
+} UIActionSheetStyle;
+*/
 @implementation UIView (Daijirin)
 
 - (void)doDaijirin:(id)sender
@@ -25,9 +33,9 @@
 	}
 	
 	int sheetStyle = 2;
-	if([prefsDict objectForKey:@"SheetStyle"] != nil) sheetStyle = [[prefsDict objectForKey:@"SheetStyle"] intValue];
+	if ([prefsDict objectForKey:@"SheetStyle"] != nil) sheetStyle = [[prefsDict objectForKey:@"SheetStyle"] intValue];
 	NSString *identifier = [[NSBundle mainBundle] bundleIdentifier];
-	if ( [identifier isEqualToString:@"ch.reeder"] ) sheetStyle = 3;
+	if ([identifier isEqualToString:@"ch.reeder"]) sheetStyle = 3;// UIAlertView
 	id sheet;
 	
 	if (sheetStyle != 3) {
