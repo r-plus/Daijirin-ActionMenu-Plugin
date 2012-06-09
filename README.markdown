@@ -6,6 +6,15 @@ Send to "Daijirin", "Daijisen", "Wisdom" and "Safari".
 ![](http://moreinfo.thebigboss.org/moreinfo/actionmenudaijirin3.png)
 
 ##ChangeLog
+1.16
+
+* [ADD] FastEver option
+* [FIX] target UIView of UIActionSheet
+
+1.15
+
+* [ADD] GoogleTranslate option
+
 1.14
 
 * [ADD] Midori Dictionary option
