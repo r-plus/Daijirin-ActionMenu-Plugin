@@ -20,3 +20,4 @@
 #define DEFINITION_SCHEME_URL @"define://"
 #define MIDORI_SCHEME_URL @"midori://search?text="
 #define GOOGLE_SCHEME_URL @"googletranslate://amdaijirin?q="
+#define FASTEVER_SCHEME_URL @"fastever://?text="

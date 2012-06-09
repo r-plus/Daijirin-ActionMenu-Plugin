@@ -76,6 +76,7 @@ typedef enum {
 	BOOL alcEnabled = [[prefsDict objectForKey:@"ALCEnabled"] boolValue];
 	BOOL exciteEnabled = [[prefsDict objectForKey:@"ExciteEnabled"] boolValue];
 	BOOL googleTranslateEnabled = [[prefsDict objectForKey:@"GoogleTranslateEnabled"] boolValue];
+	BOOL fasteverEnabled = [[prefsDict objectForKey:@"FastEverEnabled"] boolValue];
 	BOOL safariEnabled = [[prefsDict objectForKey:@"SafariEnabled"] boolValue];
 	
 	if (daijirinEnabled) [sheet addButtonWithTitle:@"大辞林"];
@@ -95,6 +96,7 @@ typedef enum {
 	if (alcEnabled)   [sheet addButtonWithTitle:@"ALC語源"];
 	if (exciteEnabled)   [sheet addButtonWithTitle:@"Excite"];
 	if (googleTranslateEnabled)   [sheet addButtonWithTitle:@"Google"];
+	if (fasteverEnabled)   [sheet addButtonWithTitle:@"FastEver"];
 	if (safariEnabled)   [sheet addButtonWithTitle:@"Safari"];
 	[sheet setCancelButtonIndex:[sheet addButtonWithTitle:@"Cancel"]];
 	
@@ -119,6 +121,7 @@ typedef enum {
 		if (alcEnabled)           [delegate didOpenURL:ALC_ORIGIN_OF_WORD_SCHEME_URL];
 		if (exciteEnabled)        [delegate didOpenURL:EXCITE_SCHEME_URL];
 		if (googleTranslateEnabled)        [delegate didOpenURL:GOOGLE_SCHEME_URL];
+		if (fasteverEnabled)        [delegate didOpenURL:FASTEVER_SCHEME_URL];
 		if (safariEnabled)        [delegate didOpenURL:SAFARI_SCHEME_URL];
 	} else if (i > 2){
 		if (sheetStyle == 3) {

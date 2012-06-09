@@ -44,6 +44,8 @@
 		[self didOpenURL:EXCITE_SCHEME_URL];
 	else if ([title isEqualToString:@"Google"])
 		[self didOpenURL:GOOGLE_SCHEME_URL];
+	else if ([title isEqualToString:@"FastEver"])
+		[self didOpenURL:FASTEVER_SCHEME_URL];
 	else if ([title isEqualToString:@"Safari"])
 		[self didOpenURL:SAFARI_SCHEME_URL];
 	else
