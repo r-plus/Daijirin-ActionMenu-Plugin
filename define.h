@@ -21,3 +21,4 @@
 #define MIDORI_SCHEME_URL @"midori://search?text="
 #define GOOGLE_SCHEME_URL @"googletranslate://amdaijirin?q="
 #define FASTEVER_SCHEME_URL @"fastever://?text="
+#define FASTEVERXL_SCHEME_URL @"fasteverxl://?text="

@@ -30,7 +30,7 @@
 			<key>cell</key>
 			<string>PSSwitchCell</string>
 			<key>default</key>
-			<true/>
+			<false/>
 			<key>defaults</key>
 			<string>jp.r-plus.amdaijirin</string>
 			<key>key</key>

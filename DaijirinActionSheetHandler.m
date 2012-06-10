@@ -44,8 +44,12 @@
 		[self didOpenURL:EXCITE_SCHEME_URL];
 	else if ([title isEqualToString:@"Google"])
 		[self didOpenURL:GOOGLE_SCHEME_URL];
-	else if ([title isEqualToString:@"FastEver"])
-		[self didOpenURL:FASTEVER_SCHEME_URL];
+	else if ([title isEqualToString:@"FastEver"]) {
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:FASTEVERXL_SCHEME_URL]])
+      [self didOpenURL:FASTEVERXL_SCHEME_URL];
+    else
+      [self didOpenURL:FASTEVER_SCHEME_URL];
+  }
 	else if ([title isEqualToString:@"Safari"])
 		[self didOpenURL:SAFARI_SCHEME_URL];
 	else
@@ -78,7 +82,7 @@
 	NSArray *URLTypes;
 	NSDictionary *URLType;
 	
-	BOOL URLSchemeEnabled = YES;
+	BOOL URLSchemeEnabled = NO;
 	if ([prefsDict objectForKey:@"Enabled"] != nil)
 		URLSchemeEnabled = [[prefsDict objectForKey:@"Enabled"] boolValue];
 	

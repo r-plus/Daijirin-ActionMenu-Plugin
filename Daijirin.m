@@ -121,7 +121,12 @@ typedef enum {
 		if (alcEnabled)           [delegate didOpenURL:ALC_ORIGIN_OF_WORD_SCHEME_URL];
 		if (exciteEnabled)        [delegate didOpenURL:EXCITE_SCHEME_URL];
 		if (googleTranslateEnabled)        [delegate didOpenURL:GOOGLE_SCHEME_URL];
-		if (fasteverEnabled)        [delegate didOpenURL:FASTEVER_SCHEME_URL];
+    if (fasteverEnabled) {
+      if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:FASTEVERXL_SCHEME_URL]])
+        [delegate didOpenURL:FASTEVERXL_SCHEME_URL];
+      else
+        [delegate didOpenURL:FASTEVER_SCHEME_URL];
+    }
 		if (safariEnabled)        [delegate didOpenURL:SAFARI_SCHEME_URL];
 	} else if (i > 2){
 		if (sheetStyle == 3) {
