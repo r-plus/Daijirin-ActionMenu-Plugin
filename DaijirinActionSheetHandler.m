@@ -28,6 +28,10 @@
 		[self didOpenURL:MIDORI_SCHEME_URL];
 	else if ([title isEqualToString:@"ポケプロ"])
 		[self didOpenURL:POCKET_PROGRESSIVE_EJ_SCHEME_URL];
+	else if ([title isEqualToString:@"CoBuild-EE"])
+		[self didOpenURL:COBUILD_EE_SCHEME_URL];
+	else if ([title isEqualToString:@"CoBuild-EEJ"])
+		[self didOpenURL:COBUILD_EEJ_SCHEME_URL];
 	else if ([title isEqualToString:@"ロングマン英和"])
 		[self didOpenURL:LONGMAN_EJ_SCHEME_URL];
 	else if ([title isEqualToString:@"ロングマン英英"])
@@ -95,7 +99,11 @@
 			scheme = [[URLType objectForKey:@"CFBundleURLSchemes"] lastObject];
 
 	//daijirin, ruigo and wisdom with returnURL.
-	if ( ( [string isEqualToString:DAIJIRIN_SCHEME_URL] || [string isEqualToString:WISDOM_SCHEME_URL] || [string isEqualToString:RUIGO_SCHEME_URL] )
+	if ( ( [string isEqualToString:DAIJIRIN_SCHEME_URL] ||
+         [string isEqualToString:WISDOM_SCHEME_URL] ||
+         [string isEqualToString:RUIGO_SCHEME_URL] ||
+         [string isEqualToString:COBUILD_EE_SCHEME_URL] ||
+         [string isEqualToString:COBUILD_EEJ_SCHEME_URL] )
 			&& URLSchemeEnabled
 			&& URL_SCHEME_BLACKLIST
 		  && scheme != nil)

@@ -68,6 +68,8 @@
   BOOL gurudicEnabled = [[prefsDict objectForKey:@"GuruDicEnabled"] boolValue];
   BOOL midoriEnabled = [[prefsDict objectForKey:@"MidoriEnabled"] boolValue];
   BOOL pocketProgEJEnabled = [[prefsDict objectForKey:@"PocketProgressiveEJEnabled"] boolValue];
+  BOOL cobuildEEEnabled = [[prefsDict objectForKey:@"COBUILDEEEnabled"] boolValue];
+  BOOL cobuildEEJEnabled = [[prefsDict objectForKey:@"COBUILDEEJEnabled"] boolValue];
   BOOL longmanEJEnabled = [[prefsDict objectForKey:@"LongmanEJEnabled"] boolValue];
   BOOL longmanEEEnabled = [[prefsDict objectForKey:@"LongmanEEEnabled"] boolValue];
   BOOL dictionarycomEnabled = [[prefsDict objectForKey:@"DictionarycomEnabled"] boolValue];
@@ -88,6 +90,8 @@
   if (gurudicEnabled)   [sheet addButtonWithTitle:@"GuruDic"];
   if (midoriEnabled)   [sheet addButtonWithTitle:@"Midori"];
   if (pocketProgEJEnabled)   [sheet addButtonWithTitle:@"ポケプロ"];
+  if (cobuildEEEnabled)   [sheet addButtonWithTitle:@"CoBuild-EE"];
+  if (cobuildEEJEnabled)   [sheet addButtonWithTitle:@"CoBuild-EEJ"];
   if (longmanEJEnabled)   [sheet addButtonWithTitle:@"ロングマン英和"];
   if (longmanEEEnabled)   [sheet addButtonWithTitle:@"ロングマン英英"];
   if (dictionarycomEnabled)   [sheet addButtonWithTitle:@"Dictionary.com"];
@@ -113,6 +117,8 @@
     if (gurudicEnabled)       [delegate didOpenURL:GURUDIC_SCHEME_URL];
     if (midoriEnabled)        [delegate didOpenURL:MIDORI_SCHEME_URL];
     if (pocketProgEJEnabled)  [delegate didOpenURL:POCKET_PROGRESSIVE_EJ_SCHEME_URL];
+    if (cobuildEEEnabled)     [delegate didOpenURL:COBUILD_EE_SCHEME_URL];
+    if (cobuildEEJEnabled)    [delegate didOpenURL:COBUILD_EEJ_SCHEME_URL];
     if (longmanEJEnabled)     [delegate didOpenURL:LONGMAN_EJ_SCHEME_URL];
     if (longmanEEEnabled)     [delegate didOpenURL:LONGMAN_EE_SCHEME_URL];
     if (dictionarycomEnabled) [delegate didOpenURL:DICTIONARYCOM_SCHEME_URL];

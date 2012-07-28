@@ -9,6 +9,8 @@
 #define SAFARI_SCHEME_URL @"x-web-search:///?"
 #define ALC_ORIGIN_OF_WORD_SCHEME_URL @"http://www.google.com/gwt/x?u=http://home.alc.co.jp/db/owa/etm_sch?instr="
 #define DICTIONARYCOM_SCHEME_URL @"dcom://dictionary/"
+#define COBUILD_EE_SCHEME_URL @"mkccad://jp.monokakido.CCAD/search?text="
+#define COBUILD_EEJ_SCHEME_URL @"mkccjad://jp.monokakido.CCJAD/search?text="
 #define LONGMAN_EE_SCHEME_URL @"ldoce://"
 #define LONGMAN_EJ_SCHEME_URL @"lejdict://"
 #define KOTOBA_SCHEME_URL @"kotoba://dictionary?search="
