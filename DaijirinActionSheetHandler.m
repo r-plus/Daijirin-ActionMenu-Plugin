@@ -82,77 +82,22 @@
 	if ([selection length] > 0 && ![string isEqualToString:EXCITE_SCHEME_URL])
 		selection = [selection stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	
-	NSString *scheme = nil;
-	NSArray *URLTypes;
-	NSDictionary *URLType;
-	
-	BOOL URLSchemeEnabled = NO;
-	if ([prefsDict objectForKey:@"Enabled"] != nil)
-		URLSchemeEnabled = [[prefsDict objectForKey:@"Enabled"] boolValue];
-	
 	NSString *identifier = [[NSBundle mainBundle] bundleIdentifier];
-	if ([identifier isEqualToString:@"com.apple.MobileSMS"])
-		scheme = @"sms";
 	
-	if ((URLTypes = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleURLTypes"]))
-		if ((URLType = [URLTypes lastObject]))
-			scheme = [[URLType objectForKey:@"CFBundleURLSchemes"] lastObject];
-
-	//daijirin, ruigo and wisdom with returnURL.
-	if ( ( [string isEqualToString:DAIJIRIN_SCHEME_URL] ||
-         [string isEqualToString:WISDOM_SCHEME_URL] ||
-         [string isEqualToString:RUIGO_SCHEME_URL] ||
-         [string isEqualToString:COBUILD_EE_SCHEME_URL] ||
-         [string isEqualToString:COBUILD_EEJ_SCHEME_URL] )
-			&& URLSchemeEnabled
-			&& URL_SCHEME_BLACKLIST
-		  && scheme != nil)
-	{
-		[string appendFormat:@"%@&srcname=%@&src=%@:", selection, identifier, scheme];
-	}
-	//EOW with returnURL.
-	else if (URLSchemeEnabled &&
-						 URL_SCHEME_BLACKLIST &&
-						 [string isEqualToString:EOW_SCHEME_URL] &&
-						 scheme != nil)
-	{
-		[string appendFormat:@"%@&src=%@&callback=%@:", selection, identifier, scheme];
-  }
 	//daijisen.
-	else if ([string isEqualToString:DAIJISEN_SCHEME_URL])
+	if ([string isEqualToString:DAIJISEN_SCHEME_URL])
 	{
-		NSMutableDictionary *param;
-    param = [NSMutableDictionary dictionary];
+		NSMutableDictionary *param = [NSMutableDictionary dictionary];
 		[param setObject:rawString forKey:@"keyword"];
-		//daijisen append returnURL.
-		if (URLSchemeEnabled &&
-				URL_SCHEME_BLACKLIST &&
-				scheme != nil)
-		{
-			[param setObject:[scheme stringByAppendingString:@":"] forKey:@"appBackURL"];
-		}
-
 		NSMutableString *urlString;
     urlString = [NSMutableString stringWithString:
 								 [[param description] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
-    // Add scheme
+    // Add launch scheme
     [urlString insertString:[NSString stringWithFormat:@"%@:", @"daijisen"] atIndex:0];
 		// Copy string
 		[string deleteCharactersInRange:NSMakeRange(0,[string length])];
 		string = [urlString copy];
-	}
-	//EBPocket
-	else if ([string isEqualToString:EBPOCKET_SCHEME_URL])
-	{
-		[string appendFormat:@"%@", selection];
-		//EBPocket append returnURL.
-		if (URLSchemeEnabled &&
-				URL_SCHEME_BLACKLIST &&
-				scheme != nil)
-		{
-			[string appendFormat:@"#%@:", scheme];
-		}
 	}
 	//ALC_語源
 	else if ([string isEqualToString:ALC_ORIGIN_OF_WORD_SCHEME_URL])
@@ -165,15 +110,13 @@
 		}
 	}
 	else if (![string isEqualToString:EXCITE_SCHEME_URL])
-	{ //(NO returnURLScheme) all app except daijisen.
+	{ // all app except daijisen, ALC_orig and excite.
 		[string appendFormat:@"%@",selection];
 	}
 	
 	//Append Longman
 	if ([string isEqualToString:LONGMAN_EE_SCHEME_URL] || [string isEqualToString:LONGMAN_EJ_SCHEME_URL]){
 		[string appendString:@"?exact=on"];
-		if (URLSchemeEnabled)
-			[string appendFormat:@"&back=%@:", scheme];
 	}
 	
   // clipboard for excite
