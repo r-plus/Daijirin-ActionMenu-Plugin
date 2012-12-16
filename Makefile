@@ -1,3 +1,5 @@
+ARCHS = armv7
+TARGET = iphone:clang::4.3
 include theos/makefiles/common.mk
 
 BUNDLE_NAME = Daijirin
