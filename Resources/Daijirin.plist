@@ -160,6 +160,20 @@
 			<key>defaults</key>
 			<string>jp.r-plus.amdaijirin</string>
 			<key>key</key>
+			<string>ProgressiveEEnabled</string>
+			<key>label</key>
+			<string>ProgressiveE</string>
+			<key>icon</key>
+			<key>ProgressiveE.png</key>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>jp.r-plus.amdaijirin</string>
+			<key>key</key>
 			<string>COBUILDEEJEnabled</string>
 			<key>label</key>
 			<string>CoBuildEEJ</string>

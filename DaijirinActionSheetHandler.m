@@ -1,5 +1,4 @@
 #import <UIKit/UIKit.h>
-#import <SpringBoard/SpringBoard.h>
 #import "DaijirinActionSheetHandler.h"
 #import "SBTableAlert.h"
 #import "define.h"
@@ -28,6 +27,8 @@
 		[self didOpenURL:MIDORI_SCHEME_URL];
 	else if ([title isEqualToString:@"ポケプロ"])
 		[self didOpenURL:POCKET_PROGRESSIVE_EJ_SCHEME_URL];
+	else if ([title isEqualToString:@"Progressive"])
+		[self didOpenURL:PROGRESSIVEE_SCHEME_URL];
 	else if ([title isEqualToString:@"CoBuild-EE"])
 		[self didOpenURL:COBUILD_EE_SCHEME_URL];
 	else if ([title isEqualToString:@"CoBuild-EEJ"])
@@ -85,7 +86,7 @@
 	NSString *identifier = [[NSBundle mainBundle] bundleIdentifier];
 	
 	//daijisen.
-	if ([string isEqualToString:DAIJISEN_SCHEME_URL])
+  if ([string isEqualToString:DAIJISEN_SCHEME_URL] || [string isEqualToString:PROGRESSIVEE_SCHEME_URL])
 	{
 		NSMutableDictionary *param = [NSMutableDictionary dictionary];
 		[param setObject:rawString forKey:@"keyword"];
@@ -94,7 +95,7 @@
 								 [[param description] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
     // Add launch scheme
-    [urlString insertString:[NSString stringWithFormat:@"%@:", @"daijisen"] atIndex:0];
+    [urlString insertString:[NSString stringWithFormat:@"%@:", [string isEqualToString:DAIJISEN_SCHEME_URL] ? @"daijisen" : @"shogakukanProgressiveE"] atIndex:0];
 		// Copy string
 		[string deleteCharactersInRange:NSMakeRange(0,[string length])];
 		string = [urlString copy];

@@ -15,6 +15,7 @@
 #define LONGMAN_EJ_SCHEME_URL @"lejdict://"
 #define KOTOBA_SCHEME_URL @"kotoba://dictionary?search="
 #define POCKET_PROGRESSIVE_EJ_SCHEME_URL @"pocketprogressivee://"
+#define PROGRESSIVEE_SCHEME_URL @"shogakukanProgressiveE:"
 #define GURUDIC_SCHEME_URL @"gurudic:"
 #define RUIGO_SCHEME_URL @"mkruigo://jp.monokakido.RUIGO/search?text="
 #define KOJIEN_SCHEME_URL @"LVEDKojien6://lookup?query="
