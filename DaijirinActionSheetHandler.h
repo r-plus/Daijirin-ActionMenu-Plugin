@@ -1,5 +1,14 @@
 #import "SBTableAlert.h"
 
+@interface UIApplication(Private)
+- (void)applicationOpenURL:(NSURL *)url;
+@end
+
+@interface UIActionSheet(Private)
+- (id)context;
+- (void)dismiss;// for alertView
+@end
+
 @interface DaijirinActionSheetHandler : NSObject <UIActionSheetDelegate, SBTableAlertDelegate, SBTableAlertDataSource> {
 @private
 	NSString *selection;
