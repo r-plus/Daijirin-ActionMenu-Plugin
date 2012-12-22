@@ -37,8 +37,6 @@
     [self didOpenURL:LONGMAN_EJ_SCHEME_URL];
   else if ([title isEqualToString:@"ロングマン英英"])
     [self didOpenURL:LONGMAN_EE_SCHEME_URL];
-  else if ([title isEqualToString:@"Dictionary.com"])
-    [self didOpenURL:DICTIONARYCOM_SCHEME_URL];
   else if ([title isEqualToString:@"Kotoba!"])
     [self didOpenURL:KOTOBA_SCHEME_URL];
   else if ([title isEqualToString:@"角川類語"])

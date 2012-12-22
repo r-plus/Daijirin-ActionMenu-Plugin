@@ -73,7 +73,6 @@
   BOOL cobuildEEJEnabled = [[prefsDict objectForKey:@"COBUILDEEJEnabled"] boolValue];
   BOOL longmanEJEnabled = [[prefsDict objectForKey:@"LongmanEJEnabled"] boolValue];
   BOOL longmanEEEnabled = [[prefsDict objectForKey:@"LongmanEEEnabled"] boolValue];
-  BOOL dictionarycomEnabled = [[prefsDict objectForKey:@"DictionarycomEnabled"] boolValue];
   BOOL kotobaEnabled = [[prefsDict objectForKey:@"KotobaEnabled"] boolValue];
   BOOL ruigoEnabled = [[prefsDict objectForKey:@"KadokawaRuigoEnabled"] boolValue];
   BOOL alcEnabled = [[prefsDict objectForKey:@"ALCEnabled"] boolValue];
@@ -96,7 +95,6 @@
   if (cobuildEEJEnabled)   [sheet addButtonWithTitle:@"CoBuild-EEJ"];
   if (longmanEJEnabled)   [sheet addButtonWithTitle:@"ロングマン英和"];
   if (longmanEEEnabled)   [sheet addButtonWithTitle:@"ロングマン英英"];
-  if (dictionarycomEnabled)   [sheet addButtonWithTitle:@"Dictionary.com"];
   if (kotobaEnabled)   [sheet addButtonWithTitle:@"Kotoba!"];
   if (ruigoEnabled)   [sheet addButtonWithTitle:@"角川類語"];
   if (alcEnabled)   [sheet addButtonWithTitle:@"ALC語源"];
@@ -124,7 +122,6 @@
     if (cobuildEEJEnabled)    [delegate didOpenURL:COBUILD_EEJ_SCHEME_URL];
     if (longmanEJEnabled)     [delegate didOpenURL:LONGMAN_EJ_SCHEME_URL];
     if (longmanEEEnabled)     [delegate didOpenURL:LONGMAN_EE_SCHEME_URL];
-    if (dictionarycomEnabled) [delegate didOpenURL:DICTIONARYCOM_SCHEME_URL];
     if (kotobaEnabled)        [delegate didOpenURL:KOTOBA_SCHEME_URL];
     if (ruigoEnabled)         [delegate didOpenURL:RUIGO_SCHEME_URL];
     if (alcEnabled)           [delegate didOpenURL:ALC_ORIGIN_OF_WORD_SCHEME_URL];
