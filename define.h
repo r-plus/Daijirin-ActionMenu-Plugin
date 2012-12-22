@@ -19,7 +19,7 @@
 #define GURUDIC_SCHEME_URL @"gurudic:"
 #define RUIGO_SCHEME_URL @"mkruigo://jp.monokakido.RUIGO/search?text="
 #define KOJIEN_SCHEME_URL @"LVEDKojien6://lookup?query="
-#define EXCITE_SCHEME_URL @"excitetranslate://jp.co.excite.world.english"
+#define EXCITE_SCHEME_URL @"excitetranslate://jp.co.excite.world.english?src=atokpad://com.atok.atokpad?recall=excitetranslate:"
 #define DEFINITION_SCHEME_URL @"define://"
 #define MIDORI_SCHEME_URL @"midori://search?text="
 #define GOOGLE_SCHEME_URL @"googletranslate://amdaijirin?q="
