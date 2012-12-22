@@ -6,7 +6,7 @@ Name: Daijirin ActionMenu Plugin
 Package: jp.r-plus.actionmenudaijirin
 Depends: actionmenu, mobilesubstrate
 Section: App Addons
-Version: 1.19
+Version: 1.19.1
 Architecture: iphoneos-arm
 Description: send text to DAIJIRIN dictionary app
 dev: rplus
