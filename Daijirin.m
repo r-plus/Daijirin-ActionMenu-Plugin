@@ -79,6 +79,7 @@
   BOOL exciteEnabled = [[prefsDict objectForKey:@"ExciteEnabled"] boolValue];
   BOOL googleTranslateEnabled = [[prefsDict objectForKey:@"GoogleTranslateEnabled"] boolValue];
   BOOL fasteverEnabled = [[prefsDict objectForKey:@"FastEverEnabled"] boolValue];
+  BOOL pdicoEnabled = [[prefsDict objectForKey:@"PdicoEnabled"] boolValue];
   BOOL safariEnabled = [[prefsDict objectForKey:@"SafariEnabled"] boolValue];
 
   if (daijirinEnabled) [sheet addButtonWithTitle:@"大辞林"];
@@ -101,6 +102,7 @@
   if (exciteEnabled)   [sheet addButtonWithTitle:@"Excite"];
   if (googleTranslateEnabled)   [sheet addButtonWithTitle:@"Google"];
   if (fasteverEnabled)   [sheet addButtonWithTitle:@"FastEver"];
+  if (pdicoEnabled) [sheet addButtonWithTitle:@"pdico"];
   if (safariEnabled)   [sheet addButtonWithTitle:@"Safari"];
   [sheet setCancelButtonIndex:[sheet addButtonWithTitle:@"Cancel"]];
 
@@ -133,6 +135,7 @@
       else
         [delegate didOpenURL:FASTEVER_SCHEME_URL];
     }
+    if (pdicoEnabled)        [delegate didOpenURL:PDICO_SCHEME_URL];
     if (safariEnabled)        [delegate didOpenURL:SAFARI_SCHEME_URL];
   } else if (i > 2){
     if (sheetStyle == 3) {
