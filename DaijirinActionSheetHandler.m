@@ -53,6 +53,8 @@
     else
       [self didOpenURL:FASTEVER_SCHEME_URL];
   }
+  else if ([title isEqualToString:@"pdico"])
+    [self didOpenURL:PDICO_SCHEME_URL];
   else if ([title isEqualToString:@"Safari"])
     [self didOpenURL:SAFARI_SCHEME_URL];
   else
