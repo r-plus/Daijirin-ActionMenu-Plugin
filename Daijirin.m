@@ -63,6 +63,7 @@
   BOOL daijisenEnabled = [[prefsDict objectForKey:@"DaijisenEnabled"] boolValue];
   BOOL kojienEnabled = [[prefsDict objectForKey:@"KojienEnabled"] boolValue];
   BOOL wisdomEnabled = [[prefsDict objectForKey:@"WisdomEnabled"] boolValue];
+  BOOL wisdom2Enabled = [[prefsDict objectForKey:@"Wisdom2Enabled"] boolValue];
   BOOL eowEnabled = [[prefsDict objectForKey:@"EOWEnabled"] boolValue];
   BOOL ebpocketEnabled = [[prefsDict objectForKey:@"EBPocketEnabled"] boolValue];
   BOOL gurudicEnabled = [[prefsDict objectForKey:@"GuruDicEnabled"] boolValue];
@@ -86,6 +87,7 @@
   if (daijisenEnabled) [sheet addButtonWithTitle:@"大辞泉"];
   if (kojienEnabled) [sheet addButtonWithTitle:@"広辞苑"];
   if (wisdomEnabled)   [sheet addButtonWithTitle:@"Wisdom"];
+  if (wisdom2Enabled)   [sheet addButtonWithTitle:@"Wisdom2"];
   if (eowEnabled)   [sheet addButtonWithTitle:@"EOW"];
   if (ebpocketEnabled)   [sheet addButtonWithTitle:@"EBPocket"];
   if (gurudicEnabled)   [sheet addButtonWithTitle:@"GuruDic"];
@@ -114,6 +116,7 @@
     if (daijisenEnabled)      [delegate didOpenURL:DAIJISEN_SCHEME_URL];
     if (kojienEnabled)        [delegate didOpenURL:KOJIEN_SCHEME_URL];
     if (wisdomEnabled)        [delegate didOpenURL:WISDOM_SCHEME_URL];
+    if (wisdom2Enabled)       [delegate didOpenURL:WISDOM2_SCHEME_URL];
     if (eowEnabled)           [delegate didOpenURL:EOW_SCHEME_URL];
     if (ebpocketEnabled)      [delegate didOpenURL:EBPOCKET_SCHEME_URL];
     if (gurudicEnabled)       [delegate didOpenURL:GURUDIC_SCHEME_URL];

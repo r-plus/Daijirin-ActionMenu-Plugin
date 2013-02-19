@@ -17,6 +17,8 @@
     [self didOpenURL:KOJIEN_SCHEME_URL];
   else if ([title isEqualToString:@"Wisdom"])
     [self didOpenURL:WISDOM_SCHEME_URL];
+  else if ([title isEqualToString:@"Wisdom2"])
+    [self didOpenURL:WISDOM_SCHEME_URL];
   else if ([title isEqualToString:@"EOW"])
     [self didOpenURL:EOW_SCHEME_URL];
   else if ([title isEqualToString:@"EBPocket"])

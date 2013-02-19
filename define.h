@@ -4,6 +4,7 @@
 #define DAIJIRIN_SCHEME_URL @"mkdaijirin://jp.monokakido.DAIJIRIN/search?text="
 #define DAIJISEN_SCHEME_URL @"daijisen:keyword="
 #define WISDOM_SCHEME_URL @"mkwisdom://jp.monokakido.WISDOM/search?text="
+#define WISDOM2_SCHEME_URL @"mkwisdom2://jp.monokakido.WISDOM2/search?text="
 #define EOW_SCHEME_URL @"eow://search?query="
 #define EBPOCKET_SCHEME_URL @"ebpocket://search?text="
 #define SAFARI_SCHEME_URL @"x-web-search:///?"
