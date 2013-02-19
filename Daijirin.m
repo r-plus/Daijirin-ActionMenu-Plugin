@@ -5,37 +5,39 @@
 #import "define.h"
 
 @interface UIActionSheet (Daijirin)
-  - (void)setUseTwoColumnsButtonsLayout:(BOOL)arg1;
-  - (void)setTwoColumnsLayoutMode:(int)arg1;
-  - (void)setForceHorizontalButtonsLayout:(BOOL)arg1;
-  @end
+- (void)setUseTwoColumnsButtonsLayout:(BOOL)arg1;
+- (void)setTwoColumnsLayoutMode:(int)arg1;
+- (void)setForceHorizontalButtonsLayout:(BOOL)arg1;
+@end
 
-  /*
+/*
      typedef enum {
      UIActionSheetStyleAutomatic        = -1,
      UIActionSheetStyleDefault          = UIBarStyleDefault,
      UIActionSheetStyleBlackTranslucent = UIBarStyleBlackTranslucent,
      UIActionSheetStyleBlackOpaque      = UIBarStyleBlackOpaque,
      } UIActionSheetStyle;
-   */
+*/
 @implementation UIView (Daijirin)
 
-  - (void)doDaijirin:(id)sender
+- (void)doDaijirin:(id)sender
 {
   DaijirinActionSheetHandler *delegate = [[DaijirinActionSheetHandler alloc] init];
   delegate.selection = [self selectedTextualRepresentation];
   NSDictionary *prefsDict = [NSDictionary dictionaryWithContentsOfFile:PREFERENCE_PATH];
   delegate.prefsDict = prefsDict;
 
-  if (!prefsDict){
+  if (!prefsDict) {
     [delegate didOpenURL:DAIJIRIN_SCHEME_URL];
     return;
   }
 
   int sheetStyle = 2;
-  if ([prefsDict objectForKey:@"SheetStyle"] != nil) sheetStyle = [[prefsDict objectForKey:@"SheetStyle"] intValue];
+  if ([prefsDict objectForKey:@"SheetStyle"] != nil)
+    sheetStyle = [[prefsDict objectForKey:@"SheetStyle"] intValue];
   NSString *identifier = [[NSBundle mainBundle] bundleIdentifier];
-  if ([identifier isEqualToString:@"ch.reeder"]) sheetStyle = 3;// UIAlertView
+  if ([identifier isEqualToString:@"ch.reeder"])
+    sheetStyle = 3;// UIAlertView
   id sheet;
 
   if (sheetStyle != 3) {
@@ -59,7 +61,8 @@
   [sheet setContext:@"amDaijirin"];
 
   BOOL daijirinEnabled = YES;
-  if([prefsDict objectForKey:@"DaijirinEnabled"] != nil) daijirinEnabled = [[prefsDict objectForKey:@"DaijirinEnabled"] boolValue];
+  if ([prefsDict objectForKey:@"DaijirinEnabled"] != nil)
+    daijirinEnabled = [[prefsDict objectForKey:@"DaijirinEnabled"] boolValue];
   BOOL daijisenEnabled = [[prefsDict objectForKey:@"DaijisenEnabled"] boolValue];
   BOOL kojienEnabled = [[prefsDict objectForKey:@"KojienEnabled"] boolValue];
   BOOL wisdomEnabled = [[prefsDict objectForKey:@"WisdomEnabled"] boolValue];
@@ -112,34 +115,34 @@
   if (i == 1) {
     [delegate didOpenURL:DAIJIRIN_SCHEME_URL];
   } else if (i == 2) {
-    if (daijirinEnabled)      [delegate didOpenURL:DAIJIRIN_SCHEME_URL];
-    if (daijisenEnabled)      [delegate didOpenURL:DAIJISEN_SCHEME_URL];
-    if (kojienEnabled)        [delegate didOpenURL:KOJIEN_SCHEME_URL];
-    if (wisdomEnabled)        [delegate didOpenURL:WISDOM_SCHEME_URL];
-    if (wisdom2Enabled)       [delegate didOpenURL:WISDOM2_SCHEME_URL];
-    if (eowEnabled)           [delegate didOpenURL:EOW_SCHEME_URL];
-    if (ebpocketEnabled)      [delegate didOpenURL:EBPOCKET_SCHEME_URL];
-    if (gurudicEnabled)       [delegate didOpenURL:GURUDIC_SCHEME_URL];
-    if (midoriEnabled)        [delegate didOpenURL:MIDORI_SCHEME_URL];
-    if (pocketProgEJEnabled)  [delegate didOpenURL:POCKET_PROGRESSIVE_EJ_SCHEME_URL];
-    if (progressiveEEnabled)  [delegate didOpenURL:PROGRESSIVEE_SCHEME_URL];
-    if (cobuildEEEnabled)     [delegate didOpenURL:COBUILD_EE_SCHEME_URL];
-    if (cobuildEEJEnabled)    [delegate didOpenURL:COBUILD_EEJ_SCHEME_URL];
-    if (longmanEJEnabled)     [delegate didOpenURL:LONGMAN_EJ_SCHEME_URL];
-    if (longmanEEEnabled)     [delegate didOpenURL:LONGMAN_EE_SCHEME_URL];
-    if (kotobaEnabled)        [delegate didOpenURL:KOTOBA_SCHEME_URL];
-    if (ruigoEnabled)         [delegate didOpenURL:RUIGO_SCHEME_URL];
-    if (alcEnabled)           [delegate didOpenURL:ALC_ORIGIN_OF_WORD_SCHEME_URL];
-    if (exciteEnabled)        [delegate didOpenURL:EXCITE_SCHEME_URL];
-    if (googleTranslateEnabled)        [delegate didOpenURL:GOOGLE_SCHEME_URL];
+    if (daijirinEnabled)        [delegate didOpenURL:DAIJIRIN_SCHEME_URL];
+    if (daijisenEnabled)        [delegate didOpenURL:DAIJISEN_SCHEME_URL];
+    if (kojienEnabled)          [delegate didOpenURL:KOJIEN_SCHEME_URL];
+    if (wisdomEnabled)          [delegate didOpenURL:WISDOM_SCHEME_URL];
+    if (wisdom2Enabled)         [delegate didOpenURL:WISDOM2_SCHEME_URL];
+    if (eowEnabled)             [delegate didOpenURL:EOW_SCHEME_URL];
+    if (ebpocketEnabled)        [delegate didOpenURL:EBPOCKET_SCHEME_URL];
+    if (gurudicEnabled)         [delegate didOpenURL:GURUDIC_SCHEME_URL];
+    if (midoriEnabled)          [delegate didOpenURL:MIDORI_SCHEME_URL];
+    if (pocketProgEJEnabled)    [delegate didOpenURL:POCKET_PROGRESSIVE_EJ_SCHEME_URL];
+    if (progressiveEEnabled)    [delegate didOpenURL:PROGRESSIVEE_SCHEME_URL];
+    if (cobuildEEEnabled)       [delegate didOpenURL:COBUILD_EE_SCHEME_URL];
+    if (cobuildEEJEnabled)      [delegate didOpenURL:COBUILD_EEJ_SCHEME_URL];
+    if (longmanEJEnabled)       [delegate didOpenURL:LONGMAN_EJ_SCHEME_URL];
+    if (longmanEEEnabled)       [delegate didOpenURL:LONGMAN_EE_SCHEME_URL];
+    if (kotobaEnabled)          [delegate didOpenURL:KOTOBA_SCHEME_URL];
+    if (ruigoEnabled)           [delegate didOpenURL:RUIGO_SCHEME_URL];
+    if (alcEnabled)             [delegate didOpenURL:ALC_ORIGIN_OF_WORD_SCHEME_URL];
+    if (exciteEnabled)          [delegate didOpenURL:EXCITE_SCHEME_URL];
+    if (googleTranslateEnabled) [delegate didOpenURL:GOOGLE_SCHEME_URL];
+    if (pdicoEnabled)           [delegate didOpenURL:PDICO_SCHEME_URL];
+    if (safariEnabled)          [delegate didOpenURL:SAFARI_SCHEME_URL];
     if (fasteverEnabled) {
       if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:FASTEVERXL_SCHEME_URL]])
         [delegate didOpenURL:FASTEVERXL_SCHEME_URL];
       else
         [delegate didOpenURL:FASTEVER_SCHEME_URL];
     }
-    if (pdicoEnabled)        [delegate didOpenURL:PDICO_SCHEME_URL];
-    if (safariEnabled)        [delegate didOpenURL:SAFARI_SCHEME_URL];
   } else if (i > 2){
     if (sheetStyle == 3) {
       if (i >= 9) {
@@ -182,7 +185,7 @@
 
 - (BOOL)canDoDaijirin:(id)sender
 {
-  return ( [[self textualRepresentation] length] > 0 && [self respondsToSelector:@selector(selectAll)] ) ? YES : NO;
+  return ([[self textualRepresentation] length] > 0 && [self respondsToSelector:@selector(selectAll)]) ? YES : NO;
 }
 
 + (void)load

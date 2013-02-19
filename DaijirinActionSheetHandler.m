@@ -118,7 +118,7 @@
   }
   
   //Append Longman
-  if ([string isEqualToString:LONGMAN_EE_SCHEME_URL] || [string isEqualToString:LONGMAN_EJ_SCHEME_URL]){
+  if ([string isEqualToString:LONGMAN_EE_SCHEME_URL] || [string isEqualToString:LONGMAN_EJ_SCHEME_URL]) {
     [string appendString:@"?exact=on"];
   }
   
