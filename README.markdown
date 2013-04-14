@@ -1,5 +1,5 @@
 # This is obsolete project.
-Obsolete! This project has been replace to "ActivityAction" project. No longer update and support.
+Obsolete! This project has been replace to "ActivityAction" project. No longer update and support. RIP, Thanks my first project for jailbreak device.
 
 #Daijirin ActionMenu Plugin
 
