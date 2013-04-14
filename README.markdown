@@ -1,3 +1,6 @@
+# This is obsolete project.
+Obsolete! This project has been replace to "ActivityAction" project. No longer update and support.
+
 #Daijirin ActionMenu Plugin
 
 Send to "Daijirin", "Daijisen", "Wisdom" and "Safari".
